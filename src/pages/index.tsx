@@ -43,11 +43,13 @@ export default function Home() {
           </Link>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <p className="text-2xl ">
-            {hello.data ? hello.data.greeting : 'Loading tRPC query...'}
-          </p>
+          <div className="flex items-center gap-6">
+            <ToggleThemeButton />
+            <p className="text-2xl ">
+              {hello.data ? hello.data.greeting : 'Loading tRPC query...'}
+            </p>
+          </div>
           <AuthShowcase />
-          <ToggleThemeButton />
         </div>
       </div>
     </div>
@@ -62,29 +64,51 @@ function AuthShowcase() {
     { enabled: sessionData?.user !== undefined }
   );
 
+  const sendEmailMutation = api.email.send.useMutation();
+
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <p className="text-center text-2xl">
         {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
         {secretMessage && <span> - {secretMessage}</span>}
       </p>
-      <Button
-        onClick={() =>
-          toast.loading('Chargement...', {
-            description: 'Sunday, December 03, 2023 at 9:00 AM',
-            action: {
-              label: 'Undo',
-              onClick: () => console.log('Undo'),
-            },
-            cancel: {
-              label: 'Redo',
-              onClick: () => console.log('Redo'),
-            },
-          })
-        }
-      >
-        {sessionData ? 'Sign out' : 'Sign in'}
-      </Button>
+      <div className="flex items-center gap-4">
+        <Button
+          variant="secondary"
+          onClick={() =>
+            toast.loading('Chargement...', {
+              description: 'Sunday, December 03, 2023 at 9:00 AM',
+              action: {
+                label: 'Undo',
+                onClick: () => console.log('Undo'),
+              },
+              cancel: {
+                label: 'Redo',
+                onClick: () => console.log('Redo'),
+              },
+            })
+          }
+        >
+          Display toast message
+        </Button>
+        <Button
+          disabled={sendEmailMutation.isPending}
+          onClick={() =>
+            toast.promise(sendEmailMutation.mutateAsync(), {
+              dismissible: true,
+              loading: 'Sending email...',
+              success(data) {
+                return data.message;
+              },
+              error(error: Error) {
+                return error?.message;
+              },
+            })
+          }
+        >
+          Send mail to Caleb Russel
+        </Button>
+      </div>
     </div>
   );
 }

@@ -49,6 +49,7 @@ const config = {
         patterns: ["@/features/*/*"],
       },
     ],
+    "react/no-unescaped-entities": "off",
     camelcase: "off",
     "@typescript-eslint/naming-convention": [
       "error",
