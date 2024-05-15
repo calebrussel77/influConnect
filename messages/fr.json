@@ -1,0 +1,12 @@
+{
+"PageLayout": {
+    "pageTitle": "next-intl-fr"
+},
+"LocaleSwitcher": {
+    "switchLocale": "Changer pour {locale}"
+  },
+  "Index": {
+    "title": "Accueil",
+    "description": "Ceci est la page d'accueil."
+  }
+}

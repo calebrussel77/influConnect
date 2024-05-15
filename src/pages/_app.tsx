@@ -16,7 +16,7 @@ const MyApp: AppType<{ session: Session | null }> = ({
   return (
     <>
       <Meta />
-      <Providers session={session}>
+      <Providers session={session} pageProps={pageProps as never}>
         <main className={GeistSans.className}>
           <Component {...pageProps} />
           <Toaster position="bottom-right" duration={900000} />

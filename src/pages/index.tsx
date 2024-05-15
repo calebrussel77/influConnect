@@ -5,12 +5,15 @@ import { api } from '@/utils/api';
 import { ToggleThemeButton } from '@/components/toggle-theme-button';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
+import LocaleSwitcher from '@/components/local-switcher';
+import { type GetServerSidePropsContext } from 'next';
 
 export default function Home() {
   const hello = api.post.hello.useQuery({ text: 'from tRPC' });
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
+      <LocaleSwitcher />
       <div className="container flex flex-col items-center justify-center gap-12 px-4 py-16 ">
         <h1 className="text-5xl font-extrabold tracking-tight sm:text-[5rem]">
           Create <span className="text-[hsl(280,100%,70%)]">T3</span> App
@@ -84,4 +87,16 @@ function AuthShowcase() {
       </Button>
     </div>
   );
+}
+
+export async function getServerSideProps({
+  locale,
+}: GetServerSidePropsContext) {
+  return {
+    props: {
+      messages:
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+        (await import(`../../messages/${locale}.json`)).default as never,
+    },
+  };
 }
