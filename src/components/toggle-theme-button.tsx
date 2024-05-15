@@ -1,7 +1,7 @@
-import { DropdownMenu } from "./ui/dropdown-menu";
-import { Button } from "./ui/button";
-import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+import { DropdownMenu } from './ui/dropdown-menu';
+import { Button } from './ui/button';
+import { Moon, Sun } from 'lucide-react';
+import { useTheme } from 'next-themes';
 
 type ToggleThemeButtonProps = {
   className?: string;
@@ -20,13 +20,13 @@ const ToggleThemeButton = ({ className }: ToggleThemeButtonProps) => {
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end">
-        <DropdownMenu.Item onClick={() => setTheme("light")}>
+        <DropdownMenu.Item onClick={() => setTheme('light')}>
           Light
         </DropdownMenu.Item>
-        <DropdownMenu.Item onClick={() => setTheme("dark")}>
+        <DropdownMenu.Item onClick={() => setTheme('dark')}>
           Dark
         </DropdownMenu.Item>
-        <DropdownMenu.Item onClick={() => setTheme("system")}>
+        <DropdownMenu.Item onClick={() => setTheme('system')}>
           System
         </DropdownMenu.Item>
       </DropdownMenu.Content>

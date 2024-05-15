@@ -1,13 +1,13 @@
-import { type Session } from "next-auth";
-import { type AppType } from "next/app";
+import { type Session } from 'next-auth';
+import { type AppType } from 'next/app';
 
-import { api } from "@/utils/api";
+import { api } from '@/utils/api';
 
-import "@/styles/globals.css";
-import { Meta } from "@/components/meta";
-import { Providers } from "@/providers";
-import { Toaster } from "@/components/ui/sonner";
-import { GeistSans } from "geist/font/sans";
+import '@/styles/globals.css';
+import { Meta } from '@/components/meta';
+import { Providers } from '@/providers';
+import { Toaster } from '@/components/ui/sonner';
+import { GeistSans } from 'geist/font/sans';
 
 const MyApp: AppType<{ session: Session | null }> = ({
   Component,

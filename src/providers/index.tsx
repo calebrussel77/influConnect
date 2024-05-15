@@ -1,7 +1,7 @@
-import { type Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
-import React, { type PropsWithChildren } from "react";
-import { ThemeProvider } from "./theme-provider";
+import { type Session } from 'next-auth';
+import { SessionProvider } from 'next-auth/react';
+import React, { type PropsWithChildren } from 'react';
+import { ThemeProvider } from './theme-provider';
 
 type ProvidersProps = {
   session: Session | null;

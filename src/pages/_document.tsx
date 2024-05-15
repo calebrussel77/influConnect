@@ -1,5 +1,5 @@
-import { Head, Html, Main, NextScript } from "next/document";
-import { GeistSans } from "geist/font/sans";
+import { Head, Html, Main, NextScript } from 'next/document';
+import { GeistSans } from 'geist/font/sans';
 
 export default function Document() {
   return (

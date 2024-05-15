@@ -1,13 +1,13 @@
-import { useSession } from "next-auth/react";
-import Link from "next/link";
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 
-import { api } from "@/utils/api";
-import { ToggleThemeButton } from "@/components/toggle-theme-button";
-import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
+import { api } from '@/utils/api';
+import { ToggleThemeButton } from '@/components/toggle-theme-button';
+import { Button } from '@/components/ui/button';
+import { toast } from 'sonner';
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: "from tRPC" });
+  const hello = api.post.hello.useQuery({ text: 'from tRPC' });
 
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
@@ -41,7 +41,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <p className="text-2xl ">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
+            {hello.data ? hello.data.greeting : 'Loading tRPC query...'}
           </p>
           <AuthShowcase />
           <ToggleThemeButton />
@@ -56,7 +56,7 @@ function AuthShowcase() {
 
   const { data: secretMessage } = api.post.getSecretMessage.useQuery(
     undefined, // no input
-    { enabled: sessionData?.user !== undefined },
+    { enabled: sessionData?.user !== undefined }
   );
 
   return (
@@ -67,20 +67,20 @@ function AuthShowcase() {
       </p>
       <Button
         onClick={() =>
-          toast.loading("Chargement...", {
-            description: "Sunday, December 03, 2023 at 9:00 AM",
+          toast.loading('Chargement...', {
+            description: 'Sunday, December 03, 2023 at 9:00 AM',
             action: {
-              label: "Undo",
-              onClick: () => console.log("Undo"),
+              label: 'Undo',
+              onClick: () => console.log('Undo'),
             },
             cancel: {
-              label: "Redo",
-              onClick: () => console.log("Redo"),
+              label: 'Redo',
+              onClick: () => console.log('Redo'),
             },
           })
         }
       >
-        {sessionData ? "Sign out" : "Sign in"}
+        {sessionData ? 'Sign out' : 'Sign in'}
       </Button>
     </div>
   );
