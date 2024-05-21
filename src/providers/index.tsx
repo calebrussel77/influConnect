@@ -4,6 +4,7 @@ import React, { type PropsWithChildren } from 'react';
 import { ThemeProvider } from './theme-provider';
 import { NextIntlProvider } from './next-intl-provider';
 import { type PageProps } from '@/types';
+import { Toaster } from '@/components/ui/sonner';
 
 type ProvidersProps = {
   session: Session | null;
@@ -30,6 +31,7 @@ const Providers = ({
           disableTransitionOnChange
         >
           {children}
+          <Toaster position="bottom-right" duration={900000} />
         </ThemeProvider>
       </NextIntlProvider>
     </SessionProvider>
