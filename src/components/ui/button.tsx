@@ -3,6 +3,8 @@ import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 import { cn } from '@/lib/utils';
+import Link, { LinkProps } from 'next/link';
+import { Spinner } from './spinner';
 
 const buttonVariants = cva(
   'inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
@@ -38,6 +40,9 @@ export interface ButtonProps
     VariantProps<typeof buttonVariants> {
   asChild?: boolean;
   isFullWidth?: boolean;
+  isLoading?: boolean;
+  href?: LinkProps['href'];
+  asLink?: LinkProps['as'];
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
@@ -45,24 +50,54 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     {
       className,
       variant,
-      isFullWidth = false,
+      isFullWidth,
       size,
       asChild = false,
+      disabled,
+      isLoading,
+      href,
+      children,
+      asLink,
       ...props
     },
     ref
   ) => {
     const Comp = asChild ? Slot : 'button';
-    return (
+    const isDisabled = disabled ?? isLoading;
+    const isGhostOrOutlineVariant =
+      variant === 'ghost' || variant === 'outline';
+
+    const btn = (
       <Comp
         className={cn(
           isFullWidth ? 'w-full' : 'w-auto',
           buttonVariants({ variant, size, className })
         )}
         ref={ref}
+        disabled={isDisabled}
         {...props}
-      />
+      >
+        <React.Fragment>
+          {isLoading && (
+            <Spinner
+              className={cn(size === 'lg' ? 'h-7 w-7' : 'h-6 w-6')}
+              variant={isGhostOrOutlineVariant ? 'ghost' : 'white'}
+            />
+          )}
+          {children}
+        </React.Fragment>
+      </Comp>
     );
+
+    if (href) {
+      return (
+        <Link href={href} as={asLink} className={className}>
+          {btn}
+        </Link>
+      );
+    }
+
+    return btn;
   }
 );
 Button.displayName = 'Button';

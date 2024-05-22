@@ -51,7 +51,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
     const closeButton = props.value && type !== 'hidden' && (
       <CloseButton
-        variant="transparent"
+        size="sm"
         onClick={() => {
           // eslint-disable-next-line @typescript-eslint/unbound-method
           const nativeInputValueSetter = Object.getOwnPropertyDescriptor(

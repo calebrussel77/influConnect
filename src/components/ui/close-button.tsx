@@ -1,42 +1,35 @@
-import { type VariantProps, cva } from 'class-variance-authority';
 import React, { forwardRef } from 'react';
 
 import { cn } from '@/lib/utils';
 import { X } from 'lucide-react';
 
-const closeButtonToken = cva(
-  ['p-1 text-white focus:ring-1 focus:ring-primary'],
-  {
-    variants: {
-      variant: {
-        transparent: 'rounded-full bg-foreground/10 hover:bg-foreground/15',
-        subtle: 'bg-transparent',
-      },
-    },
-    compoundVariants: [{ variant: 'subtle' }],
-    defaultVariants: {
-      variant: 'subtle',
-    },
-  }
-);
+const sizeMap = {
+  sm: { btn: 'h-5 w-5', icon: 'h-3 w-3' },
+  md: { btn: 'h-6 w-6', icon: 'h-4 w-4' },
+};
 
-export type CloseButtonGlobalProps = VariantProps<typeof closeButtonToken> &
-  React.ButtonHTMLAttributes<HTMLButtonElement>;
+export type CloseButtonGlobalProps =
+  React.ButtonHTMLAttributes<HTMLButtonElement> & {
+    size?: keyof typeof sizeMap;
+  };
 
 export const CloseButton = forwardRef<
   HTMLButtonElement,
   CloseButtonGlobalProps
->(({ className, variant, ...props }, ref) => {
+>(({ className, size = 'md', ...props }, ref) => {
+  const sizeClassNames = sizeMap[size];
+
   return (
     <button
       ref={ref}
-      className={closeButtonToken({
-        variant,
-        class: cn(className),
-      })}
+      className={cn(
+        'flex items-center justify-center rounded-full border bg-accent bg-slate-200 p-2 text-muted-foreground opacity-70 ring-offset-background transition-opacity hover:opacity-100 disabled:pointer-events-none',
+        sizeClassNames?.btn,
+        className
+      )}
       {...props}
     >
-      <X className="h-3 w-3" />
+      <X className={cn('flex-shrink-0', sizeClassNames?.icon)} />
     </button>
   );
 });
