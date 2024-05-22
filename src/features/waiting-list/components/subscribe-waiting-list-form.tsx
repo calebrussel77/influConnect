@@ -17,7 +17,7 @@ const SubscribeWaitingListForm = ({
   return (
     <form
       className={cn(
-        'relative flex w-full max-w-md flex-col items-center md:flex-row',
+        'relative flex w-full max-w-md flex-col items-center gap-3 md:flex-row',
         className
       )}
     >

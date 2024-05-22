@@ -102,17 +102,14 @@ export function HowItWorksSection() {
         />
 
         {/* Mobile aspects  */}
-        <div className="relative mx-auto block w-full max-w-lg md:hidden">
+        <div className="relative mx-auto block w-full max-w-md md:hidden">
           {steps?.map((step, idx) => (
             <div
               key={step.title}
-              className={cn(
-                'absolute z-20 w-full max-w-xs',
-                step.mobilePosition
-              )}
+              className={cn('absolute z-20 w-full', step.mobilePosition)}
             >
               <div className="relative flex flex-row gap-6 xl:flex-col">
-                <div className="absolute -bottom-4 right-12 z-10 text-8xl font-extrabold opacity-15">
+                <div className="absolute -bottom-4 right-6 z-10 text-8xl font-extrabold opacity-15">
                   {idx + 1}
                 </div>
                 <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border bg-white shadow-sm">
@@ -140,14 +137,11 @@ export function HowItWorksSection() {
         </div>
 
         {/* Tablets aspects  */}
-        <div className="relative mx-auto hidden w-full max-w-xl md:block xl:hidden">
+        <div className="relative mx-auto hidden w-full max-w-md md:block xl:hidden">
           {steps?.map((step, idx) => (
             <div
               key={step.title}
-              className={cn(
-                'absolute z-20 w-full max-w-xs',
-                step.tabletPosition
-              )}
+              className={cn('absolute z-20 w-full', step.tabletPosition)}
             >
               <div className="relative flex flex-row gap-6 xl:flex-col">
                 <div className="absolute -bottom-4 right-12 z-10 text-8xl font-extrabold opacity-15">
