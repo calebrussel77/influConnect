@@ -20,26 +20,19 @@ const SubscribeWaitingListForm = ({
   });
 
   const subscribeToWaitingListMutation = api.waitingList.subscribe.useMutation({
-    onSuccess() {
+    onSuccess({ message }) {
       form.reset();
+      toast.success(message);
+    },
+    onError({ message }) {
+      toast.error(message);
     },
   });
 
   const onHandleSubmit = (
     data: z.infer<typeof createWaitingListSubscriptionSchema>
   ) => {
-    toast.promise(
-      subscribeToWaitingListMutation.mutateAsync({ email: data.email }),
-      {
-        loading: 'Chargement...',
-        success(data) {
-          return data.message;
-        },
-        error(error: Error) {
-          return error?.message;
-        },
-      }
-    );
+    subscribeToWaitingListMutation.mutate({ email: data.email });
   };
 
   return (
@@ -59,7 +52,7 @@ const SubscribeWaitingListForm = ({
         required
       />
       <Button
-        disabled={subscribeToWaitingListMutation.isPending}
+        isLoading={subscribeToWaitingListMutation.isPending}
         className="mt-3 w-full md:mt-0 md:w-auto"
       >
         Rejoindre

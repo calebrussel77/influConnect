@@ -1,7 +1,5 @@
-import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
-import { api } from '@/utils/api';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
@@ -9,8 +7,6 @@ import LocaleSwitcher from '@/components/local-switcher';
 import { type GetServerSidePropsContext } from 'next';
 
 export default function Home() {
-  const hello = api.post.hello.useQuery({ text: 'from tRPC' });
-
   return (
     <div className="flex min-h-screen flex-col items-center justify-center">
       <LocaleSwitcher />
@@ -45,9 +41,6 @@ export default function Home() {
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-6">
             <ThemeSwitcher />
-            <p className="text-2xl ">
-              {hello.data ? hello.data.greeting : 'Loading tRPC query...'}
-            </p>
           </div>
           <AuthShowcase />
         </div>
@@ -57,21 +50,8 @@ export default function Home() {
 }
 
 function AuthShowcase() {
-  const { data: sessionData } = useSession();
-
-  const { data: secretMessage } = api.post.getSecretMessage.useQuery(
-    undefined, // no input
-    { enabled: sessionData?.user !== undefined }
-  );
-
-  const sendEmailMutation = api.email.send.useMutation();
-
   return (
     <div className="flex flex-col items-center justify-center gap-4">
-      <p className="text-center text-2xl">
-        {sessionData && <span>Logged in as {sessionData.user?.name}</span>}
-        {secretMessage && <span> - {secretMessage}</span>}
-      </p>
       <div className="flex items-center gap-4">
         <Button
           variant="secondary"
@@ -91,23 +71,7 @@ function AuthShowcase() {
         >
           Display toast message
         </Button>
-        <Button
-          disabled={sendEmailMutation.isPending}
-          onClick={() =>
-            toast.promise(sendEmailMutation.mutateAsync(), {
-              dismissible: true,
-              loading: 'Sending email...',
-              success(data) {
-                return data.message;
-              },
-              error(error: Error) {
-                return error?.message;
-              },
-            })
-          }
-        >
-          Send mail to Caleb Russel
-        </Button>
+        <Button>Send mail to Caleb Russel</Button>
       </div>
     </div>
   );
