@@ -8,7 +8,7 @@
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "dev": "next dev",
-    "email:dev": "email dev --dir src/emails",
+    "email:dev": "email dev --dir src/emails/templates",
     "postinstall": "prisma generate",
     "pre-commit": "lint-staged",
     "prettier": "prettier --ignore-path .gitignore --write --ignore-unknown \"**/*.{ts,tsx,css,scss}\"",

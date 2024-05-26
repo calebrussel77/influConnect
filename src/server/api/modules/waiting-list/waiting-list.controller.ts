@@ -23,8 +23,8 @@ export const createWaitingListSubscriptionHandler = async ({
     }
 
     await sendEmail({
-      component: emailTemplates.GooglePlayPolicyUpdateEmail(),
-      subject: 'InfluConnect - Updates for you',
+      component: emailTemplates.InfluconnectWaitingList(),
+      subject: 'Bienvenue à bord de InfluConnect ! 🎉',
       to: input.email,
     });
 

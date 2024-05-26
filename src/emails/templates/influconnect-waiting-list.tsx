@@ -19,7 +19,7 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const GooglePlayPolicyUpdateEmail = () => (
+export const InfluconnectWaitingList = () => (
   <Html>
     <Head>
       <Font
@@ -33,7 +33,7 @@ export const GooglePlayPolicyUpdateEmail = () => (
         fontStyle="normal"
       />
     </Head>
-    <Preview>InfluConnect Updates</Preview>
+    <Preview>Souscription à la liste d'attente</Preview>
     <Body style={main}>
       <Container style={container}>
         <Section>
@@ -44,76 +44,57 @@ export const GooglePlayPolicyUpdateEmail = () => (
                 src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-header.png"
                 width="305"
                 height="28"
-                alt="InfluConnect developers header blue transparent"
+                alt="InfluConnect blue transparent"
               />
-              <Img
-                style={sectionLogo}
-                src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-logo.png"
-                width="155"
-                height="31"
-                alt="InfluConnect"
-              />
+              <Text style={heading}>InfluConnect</Text>
             </Column>
           </Row>
         </Section>
 
         <Section style={paragraphContent}>
           <Hr style={hr} />
-          <Text style={heading}>INFLUCONNECT UPDATE</Text>
-          <Text style={paragraph}>Hello Caleb Russel,</Text>
+          <Text style={paragraph}>Bonjour,</Text>
           <Text style={paragraph}>
-            We strive to make InfluConnect a safe and trusted experience for
-            users.
+            Nous sommes ravis de vous accueillir parmi les premiers à découvrir
+            InfluConnect, votre nouvelle plateforme de prédilection pour le
+            marketing d'influence. Merci de vous être inscrit à notre liste
+            d'attente!
           </Text>
           <Text style={paragraph}>
-            We've added clarifications to our{' '}
-            <Link href="https://notifications.google.com" style={link}>
-              Target API Level policy
-            </Link>
-            . Because this is a clarification, our enforcement standards and
-            practices for this policy remain the same.
+            Vous faites désormais partie d'une communauté exclusive de marques
+            et d'influenceurs prêts à révolutionner leurs stratégies de
+            marketing. En attendant le lancement officiel, nous vous tiendrons
+            informé des dernières nouvelles, vous offrirons des aperçus
+            exclusifs et vous donnerons la possibilité de participer à des
+            événements pré-lancement.
           </Text>
         </Section>
         <Section style={paragraphList}>
           <Text style={paragraph}>
-            We’re noting exceptions to the{' '}
-            <Link href="https://notifications.google.com" style={link}>
-              Target API Level policy
-            </Link>
-            , which can be found in our updated{' '}
-            <Link href="https://notifications.google.com" style={link}>
-              Help Center article.
-            </Link>
-            These exceptions include permanently private apps and apps that
-            target automotive or wearables form factors and are bundled within
-            the same package.{' '}
-            <Link href="https://notifications.google.com" style={link}>
-              Learn more
-            </Link>
+            Votre opinion compte pour nous. N'hésitez pas à partager vos
+            attentes ou vos questions en répondant directement à ce mail. Nous
+            sommes là pour vous écouter et pour adapter notre plateforme à vos
+            besoins.
           </Text>
         </Section>
         <Section style={paragraphContent}>
           <Text style={paragraph}>
-            We’re also extending the deadline to give you more time to adjust to
-            these changes. Now, apps that target API level 29 or below will
-            start experiencing reduced distribution starting <b>Jan 31, 2023</b>{' '}
-            instead of Nov 1, 2022. If you need more time to update your app,
-            you can request an extension to keep your app discoverable to all
-            users until May 1, 2023.
+            Restez connecté pour des mises à jour passionnantes et préparez-vous
+            à transformer votre façon de faire du marketing d'influence!
           </Text>
           <Hr style={hr} />
         </Section>
 
         <Section style={paragraphContent}>
-          <Text style={paragraph}>Thank you,</Text>
+          <Text style={paragraph}>Cordialement,</Text>
           <Text style={{ ...paragraph, fontSize: '20px' }}>
-            The InfluConnect team
+            L'équipe InfluConnect
           </Text>
         </Section>
 
         <Section style={containerContact}>
           <Row>
-            <Text style={paragraph}>Connect with us</Text>
+            <Text style={paragraph}>Suivez-nous pour ne rien rater :</Text>
           </Row>
           <Row
             align="left"
@@ -123,40 +104,32 @@ export const GooglePlayPolicyUpdateEmail = () => (
             }}
           >
             <Column style={{ paddingRight: '4px' }}>
-              <Link href="https://notifications.google.com">
+              <Link href="https://facebook.com">
                 <Img
                   width="28"
                   height="28"
-                  src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-chat.png"
+                  src={`${baseUrl}/images/facebook.png`}
                 />
               </Link>
             </Column>
             <Column style={{ paddingRight: '4px' }}>
-              <Link href="https://notifications.google.com">
+              <Link href="https://x.com">
                 <Img
                   width="28"
                   height="28"
-                  src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-icon.png"
+                  src={`${baseUrl}/images/x-twitter.png`}
                 />
               </Link>
             </Column>
             <Column style={{ paddingRight: '4px' }}>
-              <Link href="https://notifications.google.com">
+              <Link href="https://linkedin.com">
                 <Img
                   width="28"
                   height="28"
-                  src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-academy.png"
+                  src={`${baseUrl}/images/linkedin.png`}
                 />
               </Link>
             </Column>
-          </Row>
-          <Row>
-            <Img
-              style={footer}
-              width="540"
-              height="48"
-              src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-footer.png"
-            />
           </Row>
         </Section>
 
@@ -190,16 +163,12 @@ export const GooglePlayPolicyUpdateEmail = () => (
   </Html>
 );
 
-export default GooglePlayPolicyUpdateEmail;
+export default InfluconnectWaitingList;
 
 const main = {
   backgroundColor: '#dbddde',
   fontFamily:
     '-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Oxygen-Sans,Ubuntu,Cantarell,"Helvetica Neue",sans-serif',
-};
-
-const sectionLogo = {
-  padding: '0 40px',
 };
 
 const headerBlue = {
@@ -226,6 +195,7 @@ const heading = {
   lineHeight: '26px',
   fontWeight: '700',
   color: '#004dcf',
+  padding: '0 40px',
 };
 
 const paragraphContent = {

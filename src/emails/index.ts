@@ -1,2 +1,2 @@
-export * from './templates/google-play-policy-update';
+export * from './templates/influconnect-waiting-list';
 export * from './templates/stack-overflow-tips';
