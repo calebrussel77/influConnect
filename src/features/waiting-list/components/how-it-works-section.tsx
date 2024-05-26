@@ -3,6 +3,7 @@ import { Container } from '@/components/container';
 import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { Reveal } from '@/components/ui/reveal';
 
 const steps = [
   {
@@ -46,71 +47,49 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <Container as="section" className="flex items-start justify-between gap-3">
+    <Container
+      id="how-it-works"
+      as="section"
+      className="flex items-start justify-between gap-3"
+    >
       <div className="relative flex w-full flex-1 flex-col">
         <div className="relative z-20 mx-auto w-full max-w-lg space-y-6 text-center xl:mx-0 xl:text-left">
-          <Typography as="small" className="font-bold uppercase text-primary">
-            Procédures
-          </Typography>
+          <Reveal width="full">
+            <Typography as="small" className="font-bold uppercase text-primary">
+              Procédures
+            </Typography>
+          </Reveal>
+
           <div className="mt-4 flex flex-col gap-3">
-            <Typography as="h2">
-              Comment ça <br /> marche ?
-            </Typography>
-            <Typography variant="description">
-              Nous avons simplifié le processus de marketing d'influence pour
-              que vous puissiez vous concentrer sur ce qui compte le plus :
-              votre croissance. Inscrivez-vous, lancez une campagne, suivez vos
-              résultats, et payez vos influenceurs, tout cela en un seul
-              endroit.
-            </Typography>
+            <Reveal width="full">
+              <Typography as="h2">
+                Comment ça <br /> marche ?
+              </Typography>
+            </Reveal>
+            <Reveal width="full">
+              <Typography variant="description">
+                Nous avons simplifié le processus de marketing d'influence pour
+                que vous puissiez vous concentrer sur ce qui compte le plus :
+                votre croissance. Inscrivez-vous, lancez une campagne, suivez
+                vos résultats, et payez vos influenceurs, tout cela en un seul
+                endroit.
+              </Typography>
+            </Reveal>
           </div>
           <Button>Commencer</Button>
         </div>
         {steps?.map((step, idx) => (
           <div
-            key={step.title}
+            key={idx}
             className={cn(
               'absolute z-20 hidden w-full max-w-xs xl:block',
               step.desktopPosition
             )}
           >
-            <div className="relative flex flex-row gap-6 xl:flex-col">
-              <div className="absolute -bottom-4 right-12 z-10 text-9xl font-extrabold opacity-15">
-                {step.number}
-              </div>
-              <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border bg-white shadow-sm">
-                <div className="h-4 w-4 rounded-full bg-primary" />
-              </div>
-              <div className="relative z-20 space-y-3">
-                <Typography as="h5" className="font-extrabold">
-                  {step.title}
-                </Typography>
-                <Typography className="text-sm text-muted-foreground">
-                  {step.description}
-                </Typography>
-              </div>
-            </div>
-          </div>
-        ))}
-        <Image
-          fill={false}
-          width={1080}
-          height={1080}
-          src="/images/lines-vector-xl.png"
-          alt="two persons sitting on a table"
-          className="-mt-[138px] hidden h-[580px] w-auto object-contain md:hidden xl:block"
-        />
-
-        {/* Mobile aspects  */}
-        <div className="relative mx-auto block w-full max-w-md md:hidden">
-          {steps?.map((step, idx) => (
-            <div
-              key={step.title}
-              className={cn('absolute z-20 w-full', step.mobilePosition)}
-            >
+            <Reveal>
               <div className="relative flex flex-row gap-6 xl:flex-col">
-                <div className="absolute -bottom-4 right-6 z-10 text-8xl font-extrabold opacity-15">
-                  {idx + 1}
+                <div className="absolute -bottom-4 right-12 z-10 text-9xl font-extrabold opacity-15">
+                  {step.number}
                 </div>
                 <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border bg-white shadow-sm">
                   <div className="h-4 w-4 rounded-full bg-primary" />
@@ -124,12 +103,51 @@ export function HowItWorksSection() {
                   </Typography>
                 </div>
               </div>
+            </Reveal>
+          </div>
+        ))}
+        <Image
+          fill={false}
+          width={1080}
+          height={1080}
+          withAnimation={false}
+          src="/images/lines-vector-xl.png"
+          alt="two persons sitting on a table"
+          className="-mt-[138px] hidden h-[580px] w-auto object-contain xl:block"
+        />
+
+        {/* Mobile aspects  */}
+        <div className="relative mx-auto block w-full max-w-md md:hidden">
+          {steps?.map((step, idx) => (
+            <div
+              key={step.title}
+              className={cn('absolute z-20 w-full', step.mobilePosition)}
+            >
+              <Reveal>
+                <div className="relative flex flex-row gap-6 xl:flex-col">
+                  <div className="absolute -bottom-4 right-6 z-10 text-8xl font-extrabold opacity-15">
+                    {idx + 1}
+                  </div>
+                  <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border bg-white shadow-sm">
+                    <div className="h-4 w-4 rounded-full bg-primary" />
+                  </div>
+                  <div className="relative z-20 space-y-3">
+                    <Typography as="h5" className="font-extrabold">
+                      {step.title}
+                    </Typography>
+                    <Typography className="text-sm text-muted-foreground">
+                      {step.description}
+                    </Typography>
+                  </div>
+                </div>
+              </Reveal>
             </div>
           ))}
           <Image
             fill={false}
             width={1080}
             height={1080}
+            withAnimation={false}
             src="/images/lines-vector-sm.png"
             alt="two persons sitting on a table"
             className="-ml-3 mt-6 block h-[620px] w-auto object-contain"
@@ -143,32 +161,37 @@ export function HowItWorksSection() {
               key={step.title}
               className={cn('absolute z-20 w-full', step.tabletPosition)}
             >
-              <div className="relative flex flex-row gap-6 xl:flex-col">
-                <div className="absolute -bottom-4 right-12 z-10 text-8xl font-extrabold opacity-15">
-                  {idx + 1}
+              <Reveal>
+                <div className="relative flex flex-row gap-6 xl:flex-col">
+                  <div className="absolute -bottom-4 right-12 z-10 text-8xl font-extrabold opacity-15">
+                    {idx + 1}
+                  </div>
+                  <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border bg-white shadow-sm">
+                    <div className="h-4 w-4 rounded-full bg-primary" />
+                  </div>
+                  <div className="relative z-20 space-y-3">
+                    <Typography as="h5" className="font-extrabold">
+                      {step.title}
+                    </Typography>
+                    <Typography className="text-sm text-muted-foreground">
+                      {step.description}
+                    </Typography>
+                  </div>
                 </div>
-                <div className="inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full border bg-white shadow-sm">
-                  <div className="h-4 w-4 rounded-full bg-primary" />
-                </div>
-                <div className="relative z-20 space-y-3">
-                  <Typography as="h5" className="font-extrabold">
-                    {step.title}
-                  </Typography>
-                  <Typography className="text-sm text-muted-foreground">
-                    {step.description}
-                  </Typography>
-                </div>
-              </div>
+              </Reveal>
             </div>
           ))}
-          <Image
-            fill={false}
-            width={1080}
-            height={1080}
-            src="/images/lines-vector-md.png"
-            alt="two persons sitting on a table"
-            className="mt-6 block h-[680px] w-auto object-contain"
-          />
+          <Reveal>
+            <Image
+              fill={false}
+              width={1080}
+              height={1080}
+              withAnimation={false}
+              src="/images/lines-vector-md.png"
+              alt="two persons sitting on a table"
+              className="mt-6 block h-[680px] w-auto object-contain"
+            />
+          </Reveal>
         </div>
       </div>
     </Container>

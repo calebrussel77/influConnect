@@ -8,8 +8,6 @@ export default function LocaleSwitcher() {
   const { locale, locales, route } = useRouter();
   const otherLocale = locales?.find(cur => cur !== locale);
 
-  console.log(locale, otherLocale);
-
   return (
     <Link href={route} locale={otherLocale}>
       {t('switchLocale', { locale: otherLocale })}

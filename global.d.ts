@@ -32,4 +32,10 @@ declare global {
 
   type ComponentWithProps<T> =
     T extends React.ComponentType<infer P> ? P : object;
+
+  type AsyncReturnType<T extends (...args: any) => Promise<any>> = T extends (
+    ...args: any
+  ) => Promise<infer R>
+    ? R
+    : any;
 }

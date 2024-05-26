@@ -1,9 +1,12 @@
-import { AbsolutePlacement } from '@/components/ui/absolute-placement';
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+import { Form, InputText, useZodForm } from '@/components/ui/form';
 import { cn } from '@/lib/utils';
+import { createWaitingListSubscriptionSchema } from '@/server/api/modules/waiting-list/waiting-list.schema';
+import { api } from '@/utils/api';
 import React, { type PropsWithChildren } from 'react';
-import { useState } from 'react';
+import { toast } from 'sonner';
+import { type z } from 'zod';
 
 interface SubscribeWaitingListFormProps {
   className?: string;
@@ -12,24 +15,56 @@ interface SubscribeWaitingListFormProps {
 const SubscribeWaitingListForm = ({
   className,
 }: PropsWithChildren<SubscribeWaitingListFormProps>) => {
-  const [value, setValue] = useState('');
+  const form = useZodForm({
+    schema: createWaitingListSubscriptionSchema,
+  });
+
+  const subscribeToWaitingListMutation = api.waitingList.subscribe.useMutation({
+    onSuccess() {
+      form.reset();
+    },
+  });
+
+  const onHandleSubmit = (
+    data: z.infer<typeof createWaitingListSubscriptionSchema>
+  ) => {
+    toast.promise(
+      subscribeToWaitingListMutation.mutateAsync({ email: data.email }),
+      {
+        loading: 'Chargement...',
+        success(data) {
+          return data.message;
+        },
+        error(error: Error) {
+          return error?.message;
+        },
+      }
+    );
+  };
 
   return (
-    <form
+    <Form
+      onSubmit={onHandleSubmit}
+      gap="none"
+      form={form}
       className={cn(
-        'relative flex w-full max-w-md flex-col items-center gap-3 md:flex-row',
+        'relative flex w-full max-w-lg flex-col items-start gap-3 md:flex-row',
         className
       )}
     >
-      <Input
+      <InputText
+        name="email"
         placeholder="Entrez votre email"
-        value={value}
-        onChange={e => setValue(e.target.value)}
         isFullWidth
-        className="bg-white"
+        required
       />
-      <Button className="mt-3 w-full md:mt-0 md:w-auto">Rejoindre</Button>
-    </form>
+      <Button
+        disabled={subscribeToWaitingListMutation.isPending}
+        className="mt-3 w-full md:mt-0 md:w-auto"
+      >
+        Rejoindre
+      </Button>
+    </Form>
   );
 };
 

@@ -7,19 +7,22 @@ import { cn } from '@/lib/utils';
 import { useMergeRefs } from '@/hooks/use-merge-refs';
 
 import { CloseButton } from './close-button';
-import { Spinner } from './spinner';
 
 type ClassNames = {
   root: string;
   input: string;
+  leftSection: string;
+  rightSection: string;
 };
 
 export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   loading?: boolean;
   variant?: Variant;
   autoFocus?: boolean;
-  iconBefore?: React.ReactNode;
-  iconAfter?: React.ReactNode;
+  leftSection?: React.ReactNode;
+  rightSection?: React.ReactNode;
+  rightSectionPointerEvents?: 'auto' | 'none';
+  leftSectionPointerEvents?: 'auto' | 'none';
   isFullWidth?: boolean;
   isClearable?: boolean;
   classNames?: Partial<ClassNames>;
@@ -32,11 +35,13 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       className,
       type,
       variant,
-      iconBefore,
-      iconAfter,
+      leftSection,
+      rightSection,
       disabled,
       loading,
       classNames,
+      leftSectionPointerEvents = 'none',
+      rightSectionPointerEvents = 'none',
       isFullWidth = true,
       isClearable = true,
       onClear,
@@ -44,7 +49,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     },
     ref
   ) => {
-    const hasElementAfter = iconAfter ?? loading ?? isClearable;
+    const hasRightElement = rightSection ?? isClearable;
     const hasError = variant === 'error';
     const inputRef = React.useRef<HTMLInputElement>(null);
     const mergedRef = useMergeRefs(ref, inputRef) as unknown;
@@ -75,9 +80,16 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           classNames?.root
         )}
       >
-        {iconBefore && (
-          <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-            {iconBefore}
+        {leftSection && (
+          <div
+            data-position="left"
+            className={cn(
+              'absolute inset-y-0 left-0 flex items-center pl-3 pr-1',
+              leftSectionPointerEvents === 'none' && 'pointer-events-none',
+              classNames?.leftSection
+            )}
+          >
+            {leftSection}
           </div>
         )}
         <input
@@ -86,9 +98,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           type={type}
           disabled={disabled ?? loading}
           className={cn(
-            'flex h-10 w-full rounded-sm border border-input bg-transparent px-3 py-2 text-sm ring-offset-background transition duration-300 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
-            iconBefore && 'pl-10',
-            hasElementAfter && 'pr-10',
+            'flex h-10 w-full rounded-sm border border-input bg-white px-3 py-2 text-sm shadow-sm ring-offset-background transition duration-300 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-slate-200',
+            leftSection && 'pl-10',
+            hasRightElement && 'pr-10',
             classNames?.input,
             className
           )}
@@ -96,16 +108,25 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           {...props}
         />
 
-        {hasElementAfter && (
-          <div className="absolute inset-y-0 right-0 flex items-center gap-4 pr-3">
-            <div className="pointer-events-none ">
-              {loading ? (
-                <Spinner variant="ghost" size="md" aria-hidden="true" />
-              ) : (
-                <div className="">{iconAfter}</div>
-              )}
-            </div>
+        {hasRightElement && (
+          <div
+            data-position="right"
+            className={cn(
+              'absolute inset-y-0 right-0 flex items-center gap-3 pl-1',
+              isClearable && !rightSection ? 'pr-1.5' : 'pr-3'
+            )}
+          >
             {isClearable && closeButton}
+            {rightSection && (
+              <div
+                className={cn(
+                  rightSectionPointerEvents === 'none' && 'pointer-events-none',
+                  classNames?.rightSection
+                )}
+              >
+                {rightSection}
+              </div>
+            )}
           </div>
         )}
       </div>

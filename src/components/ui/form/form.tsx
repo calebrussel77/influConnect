@@ -27,6 +27,7 @@ type Props<T extends FieldValues> = {
 const formToken = cva(['disabled:opacity-70 disabled:cursor-not-allowed'], {
   variants: {
     gap: {
+      none: 'space-x-0 space-y-0',
       sm: ['space-y-3'],
       md: ['space-y-6'],
       lg: ['space-y-9'],
@@ -69,8 +70,7 @@ const Form = <T extends FieldValues>({
           formToken({
             gap,
           }),
-          className,
-          'space-y-0'
+          className
         )}
         {...props}
       >

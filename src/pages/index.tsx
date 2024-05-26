@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 
 import { api } from '@/utils/api';
-import { ToggleThemeButton } from '@/components/toggle-theme-button';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import LocaleSwitcher from '@/components/local-switcher';
@@ -44,7 +44,7 @@ export default function Home() {
         </div>
         <div className="flex flex-col items-center gap-2">
           <div className="flex items-center gap-6">
-            <ToggleThemeButton />
+            <ThemeSwitcher />
             <p className="text-2xl ">
               {hello.data ? hello.data.greeting : 'Loading tRPC query...'}
             </p>

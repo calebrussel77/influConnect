@@ -26,6 +26,7 @@ const Image = forwardRef<
     onRemove?: () => void;
     isLoading?: boolean;
     isHoverable?: boolean;
+    withAnimation?: boolean;
     hasOverLay?: boolean;
     shape?: ImageShape;
   }
@@ -37,6 +38,7 @@ const Image = forwardRef<
       isLoading,
       isHoverable = false,
       hasOverLay = false,
+      withAnimation = true,
       shape = 'rounded',
       onRemove,
       alt,
@@ -84,17 +86,19 @@ const Image = forwardRef<
           </div>
         )}
         <NextImage
-          blurDataURL={blurDataURL()}
+          blurDataURL={withAnimation ? blurDataURL() : undefined}
           fill={fill}
           onClick={onClick}
-          placeholder="blur"
+          placeholder={withAnimation ? 'blur' : undefined}
           quality={100}
-          {...{
-            'data-hover': dataAttr(isHovered),
-            'data-loaded': dataAttr(isLoaded),
-            onLoad: handleImageOnLoad,
-            ...hoverProps,
-          }}
+          {...(withAnimation
+            ? {
+                'data-hover': dataAttr(isHovered),
+                'data-loaded': dataAttr(isLoaded),
+                onLoad: handleImageOnLoad,
+                ...hoverProps,
+              }
+            : {})}
           className={cn(
             [
               'flex',
@@ -102,7 +106,7 @@ const Image = forwardRef<
               'transition-opacity',
               '!duration-500',
               'opacity-0',
-              'data-[loaded=true]:opacity-100',
+              withAnimation ? 'data-[loaded=true]:opacity-100' : 'opacity-100',
             ],
             className
           )}
@@ -110,7 +114,7 @@ const Image = forwardRef<
           alt={alt}
           {...props}
         />
-        {!isLoaded && !hasCloseBtn && (
+        {!isLoaded && !hasCloseBtn && withAnimation && (
           <div
             className={cn(
               'absolute inset-0 flex h-full w-full animate-pulse items-center justify-center bg-gray-100',

@@ -15,7 +15,7 @@ const Container = ({
   return (
     <Component
       className={cn(
-        'mx-auto w-full max-w-screen-xl px-8 2xl:max-w-screen-2xl',
+        'mx-auto w-full max-w-screen-xl scroll-mt-[68px] px-8 2xl:max-w-screen-2xl',
         className
       )}
       {...rest}

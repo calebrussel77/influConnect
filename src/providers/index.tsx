@@ -6,6 +6,7 @@ import { NextIntlProvider } from './next-intl-provider';
 import { type PageProps } from '@/types';
 import { Toaster } from '@/components/ui/sonner';
 import { ModalsManagerProvider } from './modals-manager-provider';
+import { PosthogProvider } from './posthog-provider';
 
 type ProvidersProps = {
   session: Session | null;
@@ -31,8 +32,10 @@ const Providers = ({
           enableSystem
           disableTransitionOnChange
         >
-          <ModalsManagerProvider>{children}</ModalsManagerProvider>
-          <Toaster position="bottom-right" duration={900000} />
+          <PosthogProvider>
+            <ModalsManagerProvider>{children}</ModalsManagerProvider>
+            <Toaster position="bottom-right" duration={900000} />
+          </PosthogProvider>
         </ThemeProvider>
       </NextIntlProvider>
     </SessionProvider>

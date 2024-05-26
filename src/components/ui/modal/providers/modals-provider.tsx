@@ -235,8 +235,6 @@ export function ModalsProvider({
 
   const { modalProps: currentModalProps, content, type } = getCurrentModal();
 
-  console.log(state.modals.length, 'Modals length');
-
   return (
     <>
       <ModalsContext.Provider value={ctx}>

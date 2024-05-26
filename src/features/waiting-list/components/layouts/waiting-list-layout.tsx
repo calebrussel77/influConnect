@@ -9,6 +9,7 @@ import { Container } from '@/components/container';
 import Link from 'next/link';
 import { useIsMobile } from '@/hooks/use-beakpoints';
 import { Menu } from 'lucide-react';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 
 interface MainProps extends Omit<SeoProps, 'children' | 'description'> {
   className?: string;
@@ -166,12 +167,15 @@ const Header = () => {
             </ActiveLink>
           ))}
         </div>
-        <Button
-          size={isMobile ? 'sm' : 'default'}
-          className="text-xs md:text-sm"
-        >
-          Rejoindre la liste d’attente
-        </Button>
+        <div className="flex items-center gap-3">
+          <Button
+            size={isMobile ? 'sm' : 'default'}
+            className="text-xs md:text-sm"
+          >
+            Rejoindre la liste d’attente
+          </Button>
+          <ThemeSwitcher className="hidden md:flex" />
+        </div>
         <Button
           size="icon"
           variant="ghost"

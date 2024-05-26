@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
+
+'use client';
+
 import React, { useState } from 'react';
 
 import { cn } from '@/lib/utils';
@@ -9,10 +12,8 @@ import { Button, type ButtonProps } from '../button';
 import { type ConfirmLabels } from './types/context';
 import { ModalFooter, ModalHeader, ModalMain } from './modal';
 import { useModals } from './hooks/use-modals';
-import { useIsComputer, useIsMobile } from '@/hooks/use-beakpoints';
+import { useIsComputer } from '@/hooks/use-beakpoints';
 import {
-  Drawer,
-  DrawerContent,
   DrawerDescription,
   DrawerFooter,
   DrawerHeader,

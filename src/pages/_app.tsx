@@ -20,6 +20,10 @@ import { DefaultSeo } from 'next-seo';
 import { buildCanonical } from '@/lib/next-seo-config';
 import { WaitingListMode } from '@/features/waiting-list';
 import { cn } from '@/lib/utils';
+import { env } from '@/env';
+import { isDev } from '@/constants';
+import { isWindowDefined } from '@/utils/type-guards';
+import posthog from 'posthog-js';
 
 type CustomNextPage = NextPage & {
   getLayout?: (page: ReactElement, router: AppProps['router']) => ReactNode;
@@ -31,6 +35,17 @@ export type AppPageProps = {
   session: Session | null;
   isMaintenanceMode: boolean | undefined;
 }>;
+
+if (isWindowDefined()) {
+  if (!isDev) {
+    posthog.init(env.NEXT_PUBLIC_POSTHOG_KEY, {
+      api_host: env.NEXT_PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com',
+      loaded: posthog => {
+        if (isDev) posthog.debug(); // debug mode in development
+      },
+    });
+  }
+}
 
 const MyApp = (props: AppPageProps) => {
   const {

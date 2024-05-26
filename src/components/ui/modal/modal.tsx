@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 
 /* eslint-disable @typescript-eslint/no-unsafe-argument */
+'use client';
+
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as React from 'react';
 

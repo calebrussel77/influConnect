@@ -50,7 +50,7 @@ export function withController<
             field,
             fieldState,
             formState,
-            props: props as any,
+            props: props as unknown as TComponentProps,
           }); //eslint-disable-line
 
           const handleChange = (...values: any) => {

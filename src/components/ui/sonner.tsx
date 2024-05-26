@@ -13,9 +13,9 @@ const Toaster = ({ ...props }: ToasterProps) => {
       className="toaster group"
       toastOptions={{
         classNames: {
-          toast: twMerge(
-            '!bg-background !font-sans !text-foreground !border-border !shadow-lg'
-          ),
+          icon: twMerge('!text-primary'),
+          toast: twMerge('!bg-background !border-border !shadow-lg'),
+          content: twMerge('!font-sans !text-foreground'),
           description: twMerge('!text-muted-foreground'),
           actionButton: twMerge(
             '!bg-primary !font-sans !text-primary-foreground hover:!bg-primary/80'

@@ -25,8 +25,16 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: z.string(),
     DISCORD_CLIENT_SECRET: z.string(),
     RESEND_API_KEY: z.string(),
-    EMAIL_FROM: z.string(),
     MAINTENANCE_MODE: z.string(),
+    EMAIL_FROM: z.string(),
+    EMAIL_HOST: z.string(),
+    EMAIL_PORT: z.string(),
+    EMAIL_USER: z.string(),
+    EMAIL_PASS: z.string(),
+    EMAIL_SECURE: z.preprocess(
+      val => val === true || val === 'true',
+      z.boolean()
+    ),
   },
 
   /**
@@ -37,6 +45,8 @@ export const env = createEnv({
   client: {
     NEXT_PUBLIC_APP_URL: z.string(),
     NEXT_PUBLIC_APP_NAME: z.string(),
+    NEXT_PUBLIC_POSTHOG_KEY: z.string(),
+    NEXT_PUBLIC_POSTHOG_HOST: z.string(),
   },
 
   /**
@@ -51,10 +61,17 @@ export const env = createEnv({
     DISCORD_CLIENT_ID: process.env.DISCORD_CLIENT_ID,
     DISCORD_CLIENT_SECRET: process.env.DISCORD_CLIENT_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
-    EMAIL_FROM: process.env.EMAIL_FROM,
     NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_APP_NAME: process.env.NEXT_PUBLIC_APP_NAME,
     MAINTENANCE_MODE: process.env.MAINTENANCE_MODE,
+    NEXT_PUBLIC_POSTHOG_KEY: process.env.NEXT_PUBLIC_POSTHOG_KEY,
+    NEXT_PUBLIC_POSTHOG_HOST: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+    EMAIL_FROM: process.env.EMAIL_FROM,
+    EMAIL_HOST: process.env.EMAIL_HOST,
+    EMAIL_PORT: process.env.EMAIL_PORT,
+    EMAIL_USER: process.env.EMAIL_USER,
+    EMAIL_PASS: process.env.EMAIL_PASS,
+    EMAIL_SECURE: process.env.EMAIL_SECURE,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
