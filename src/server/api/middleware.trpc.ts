@@ -41,7 +41,10 @@ export function rateLimit({ limit, duration }: RateLimit = {}) {
 
       ctx.res.setHeader('Retry-After', retryAfter.toString());
 
-      throwRateLimitError('Too Many requests', { retryAfter });
+      throwRateLimitError(
+        'Vous avez dépassé le nombre maximum de tentatives. Veuillez réessayer plus tard.',
+        { retryAfter }
+      );
     }
     return await next();
   });

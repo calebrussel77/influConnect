@@ -183,7 +183,6 @@ export function ModalsProvider({
       case 'context': {
         const { innerProps, ...rest } = currentModal.props;
         const ContextModal = modals?.[currentModal.ctx]!;
-
         return {
           type: currentModal.type,
           modalProps: rest,
@@ -235,28 +234,19 @@ export function ModalsProvider({
 
   const { modalProps: currentModalProps, content, type } = getCurrentModal();
 
+  const Wrapper = type === 'context' ? ContextModalWrapper : ModalWrapper;
+
   return (
     <>
       <ModalsContext.Provider value={ctx}>
-        {type === 'context' ? (
-          <ContextModalWrapper
-            {...modalProps}
-            {...currentModalProps}
-            open={state.modals.length > 0}
-            onClose={() => closeModal(state.current?.id!)}
-          >
-            {content}
-          </ContextModalWrapper>
-        ) : (
-          <ModalWrapper
-            {...modalProps}
-            {...currentModalProps}
-            open={state.modals.length > 0}
-            onClose={() => closeModal(state.current?.id!)}
-          >
-            {content}
-          </ModalWrapper>
-        )}
+        <Wrapper
+          {...modalProps}
+          {...currentModalProps}
+          open={state.modals.length > 0}
+          onClose={() => closeModal(state.current?.id!)}
+        >
+          {content}
+        </Wrapper>
         {children}
       </ModalsContext.Provider>
     </>

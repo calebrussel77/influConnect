@@ -197,7 +197,7 @@ const DialogDescription = React.forwardRef<
   <DialogPrimitive.Description onClick={onClick} ref={ref} asChild>
     <Typography
       variant="subtle"
-      className={cn('leading-6', className)}
+      className={cn('text-sm leading-6', className)}
       {...props}
     />
   </DialogPrimitive.Description>

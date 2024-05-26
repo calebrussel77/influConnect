@@ -10,10 +10,12 @@ import { type z } from 'zod';
 
 interface SubscribeWaitingListFormProps {
   className?: string;
+  onSuccess?: () => void;
 }
 
 const SubscribeWaitingListForm = ({
   className,
+  onSuccess,
 }: PropsWithChildren<SubscribeWaitingListFormProps>) => {
   const form = useZodForm({
     schema: createWaitingListSubscriptionSchema,
@@ -23,6 +25,7 @@ const SubscribeWaitingListForm = ({
     onSuccess({ message }) {
       form.reset();
       toast.success(message);
+      onSuccess?.();
     },
     onError({ message }) {
       toast.error(message);
@@ -47,7 +50,8 @@ const SubscribeWaitingListForm = ({
     >
       <InputText
         name="email"
-        placeholder="Entrez votre email"
+        autoFocus
+        placeholder="Entrez votre adresse email"
         isFullWidth
         required
       />

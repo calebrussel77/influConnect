@@ -4,3 +4,4 @@ export * from './hooks/use-modals';
 export * from './confirm-modal';
 export * from './providers/modals-provider';
 export * from './types/context';
+export * from './utils/create-context-modal';

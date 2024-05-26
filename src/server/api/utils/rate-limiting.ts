@@ -49,7 +49,10 @@ const isRateLimited = async (
     res.setHeader('Retry-After', retryAfter.toString());
     res.setHeader('X-RateLimit-Remaining', '0');
 
-    res.status(429).json({ error: 'Too Many Requests' });
+    res.status(429).json({
+      error:
+        'Vous avez dépassé le nombre maximum de tentatives. Veuillez réessayer plus tard.',
+    });
 
     return true;
   }

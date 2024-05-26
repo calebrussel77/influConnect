@@ -10,6 +10,7 @@ import Link from 'next/link';
 import { useIsMobile } from '@/hooks/use-beakpoints';
 import { Menu } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/theme-switcher';
+import { openContext } from '@/providers/modals-manager-provider';
 
 interface MainProps extends Omit<SeoProps, 'children' | 'description'> {
   className?: string;
@@ -153,7 +154,7 @@ const Header = () => {
   const isMobile = useIsMobile();
 
   return (
-    <header className="sticky inset-x-0 -top-0 z-50 w-full border-b bg-white dark:bg-background">
+    <header className="sticky inset-x-0 -top-0 z-50 w-full border-b bg-white/60 backdrop-blur-sm dark:bg-background/60">
       <Container className="flex items-center justify-between gap-3 py-3">
         <Logo />
         <div className="hidden items-start justify-start gap-[31px] md:flex">
@@ -170,6 +171,7 @@ const Header = () => {
         <div className="flex items-center gap-3">
           <Button
             size={isMobile ? 'sm' : 'default'}
+            onClick={() => openContext('subscribeWaitingList', {})}
             className="text-xs md:text-sm"
           >
             Rejoindre la liste d’attente

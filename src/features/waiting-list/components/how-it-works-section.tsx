@@ -4,6 +4,7 @@ import { Image } from '@/components/ui/image';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { Reveal } from '@/components/ui/reveal';
+import { openContext } from '@/providers/modals-manager-provider';
 
 const steps = [
   {
@@ -76,7 +77,9 @@ export function HowItWorksSection() {
               </Typography>
             </Reveal>
           </div>
-          <Button>Commencer</Button>
+          <Button onClick={() => openContext('subscribeWaitingList', {})}>
+            Commencer
+          </Button>
         </div>
         {steps?.map((step, idx) => (
           <div

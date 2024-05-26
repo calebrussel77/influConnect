@@ -1,5 +1,16 @@
-import { type ContextModalProps, ModalsProvider } from '@/components/ui/modal';
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+import {
+  type ContextModalProps,
+  ModalsProvider,
+  type ModalProps,
+} from '@/components/ui/modal';
 import { Typography } from '@/components/ui/typography';
+import {
+  openSubscribeWaitingListModal,
+  SubscribeWaitingListModal,
+} from '@/features/waiting-list';
 
 const FeedbackFormModal = ({
   context: ctx,
@@ -7,20 +18,23 @@ const FeedbackFormModal = ({
 }: ContextModalProps<Record<string, any>>) => {
   return (
     <div>
-      <Typography>
-        Are you sure you want to delete your profile? This action is destructive
-        and you will have to contact support to restore your data.
-      </Typography>
+      <Typography>Test...</Typography>
     </div>
   );
 };
 
-//TODO: Need to find a way of using dynamic imports whithout typescript errors and continue having autocomplete
+const registry = {
+  subscribeWaitingList: {
+    Component: SubscribeWaitingListModal,
+    fn: openSubscribeWaitingListModal,
+  },
+};
+
 export const appModals = {
   feedbackForm: FeedbackFormModal,
 };
 
-// neccessary to add type checking of the mantine context modals implementation in the app
+// neccessary to add type checking of the modal context in the app
 declare module '@/components/ui/modal' {
   export interface MantineModalsOverride {
     modals: typeof appModals;
@@ -38,9 +52,27 @@ export const ModalsManagerProvider = ({
         confirm: 'Confirmer',
         cancel: 'Annuler',
       }}
-      modals={appModals}
+      modals={
+        {
+          ...appModals,
+          ...(
+            Object.keys(registry) as Array<keyof typeof registry>
+          ).reduce<any>((acc, key) => {
+            acc[key] = registry[key].Component;
+            return acc;
+          }, {}),
+        } as Record<string, React.FC<ContextModalProps<any>>>
+      }
     >
       {children}
     </ModalsProvider>
   );
 };
+
+export function openContext<TName extends keyof typeof registry>(
+  modal: TName,
+  props: Parameters<(typeof registry)[TName]['fn']>[0],
+  modalProps?: Omit<ModalProps, 'open' | 'onClose'>
+) {
+  registry[modal].fn(props as any, modalProps);
+}
