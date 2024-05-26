@@ -6,6 +6,6 @@ import { rateLimit } from '../middleware.trpc';
 export const waitingListRouter = createTRPCRouter({
   subscribe: publicProcedure
     .input(createWaitingListSubscriptionSchema)
-    .use(rateLimit())
+    .use(rateLimit({ limit: 3, duration: '10 m' }))
     .mutation(createWaitingListSubscriptionHandler),
 });

@@ -14,3 +14,8 @@ export const getVariantColor = (variant: Variant) => {
   const key = shadcnVariantColorMap[variant];
   return key ? key : undefined;
 };
+
+export const appColors = {
+  primary: '#5e36f9',
+  'primary-100': '#e8e7ff',
+};

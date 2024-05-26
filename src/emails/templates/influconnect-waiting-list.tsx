@@ -1,3 +1,4 @@
+import { appColors } from '../../utils/variants';
 import {
   Body,
   Container,
@@ -36,29 +37,16 @@ export const InfluconnectWaitingList = () => (
     <Preview>Souscription à la liste d'attente</Preview>
     <Body style={main}>
       <Container style={container}>
-        <Section>
-          <Row>
-            <Column>
-              <Img
-                style={headerBlue}
-                src="https://react-email-demo-ndjnn09xj-resend.vercel.app/static/google-play-header.png"
-                width="305"
-                height="28"
-                alt="InfluConnect blue transparent"
-              />
-              <Text style={heading}>InfluConnect</Text>
-            </Column>
-          </Row>
+        <Section style={header}>
+          <Text style={heading}>InfluConnect</Text>
         </Section>
-
         <Section style={paragraphContent}>
-          <Hr style={hr} />
           <Text style={paragraph}>Bonjour,</Text>
           <Text style={paragraph}>
             Nous sommes ravis de vous accueillir parmi les premiers à découvrir
             InfluConnect, votre nouvelle plateforme de prédilection pour le
             marketing d'influence. Merci de vous être inscrit à notre liste
-            d'attente!
+            d'attente !
           </Text>
           <Text style={paragraph}>
             Vous faites désormais partie d'une communauté exclusive de marques
@@ -80,21 +68,23 @@ export const InfluconnectWaitingList = () => (
         <Section style={paragraphContent}>
           <Text style={paragraph}>
             Restez connecté pour des mises à jour passionnantes et préparez-vous
-            à transformer votre façon de faire du marketing d'influence!
+            à transformer votre façon de faire du marketing d'influence !
           </Text>
           <Hr style={hr} />
         </Section>
 
         <Section style={paragraphContent}>
           <Text style={paragraph}>Cordialement,</Text>
-          <Text style={{ ...paragraph, fontSize: '20px' }}>
+          <Text style={{ ...paragraph, fontSize: '18px', fontWeight: 'bold' }}>
             L'équipe InfluConnect
           </Text>
         </Section>
 
         <Section style={containerContact}>
           <Row>
-            <Text style={paragraph}>Suivez-nous pour ne rien rater :</Text>
+            <Text style={{ ...paragraph, marginTop: 0 }}>
+              Suivez-nous pour ne rien rater :
+            </Text>
           </Row>
           <Row
             align="left"
@@ -103,37 +93,39 @@ export const InfluconnectWaitingList = () => (
               float: 'left',
             }}
           >
-            <Column style={{ paddingRight: '4px' }}>
+            <Column style={{ paddingRight: '16px' }}>
               <Link href="https://facebook.com">
                 <Img
-                  width="28"
-                  height="28"
-                  src={`${baseUrl}/images/facebook.png`}
+                  width="24"
+                  height="24"
+                  src={`${baseUrl}/static/facebook.png`}
                 />
               </Link>
             </Column>
-            <Column style={{ paddingRight: '4px' }}>
+            <Column style={{ paddingRight: '16px' }}>
               <Link href="https://x.com">
                 <Img
-                  width="28"
-                  height="28"
-                  src={`${baseUrl}/images/x-twitter.png`}
+                  width="24"
+                  height="24"
+                  src={`${baseUrl}/static/x-twitter.png`}
                 />
               </Link>
             </Column>
-            <Column style={{ paddingRight: '4px' }}>
+            <Column style={{ paddingRight: '16px' }}>
               <Link href="https://linkedin.com">
                 <Img
-                  width="28"
-                  height="28"
-                  src={`${baseUrl}/images/linkedin.png`}
+                  width="24"
+                  height="24"
+                  src={`${baseUrl}/static/linkedin.png`}
                 />
               </Link>
             </Column>
           </Row>
         </Section>
 
-        <Section style={{ ...paragraphContent, paddingBottom: 30 }}>
+        <Section
+          style={{ ...paragraphContent, paddingBottom: 30, paddingTop: 10 }}
+        >
           <Text
             style={{
               ...paragraph,
@@ -142,8 +134,7 @@ export const InfluconnectWaitingList = () => (
               margin: 0,
             }}
           >
-            © 2022 Google LLC 1600 Amphitheatre Parkway, Mountain View, CA
-            94043, USA
+            © 2024 Influconnect Org, Douala Cameroun
           </Text>
           <Text
             style={{
@@ -153,9 +144,8 @@ export const InfluconnectWaitingList = () => (
               margin: 0,
             }}
           >
-            You have received this mandatory email service announcement to
-            update you about important changes to your InfluConnect Developer
-            account.
+            Vous recevez cet email parce que vous avez accepté de souscrire à
+            notre liste d'attente
           </Text>
         </Section>
       </Container>
@@ -182,19 +172,27 @@ const container = {
   overflow: 'hidden',
 };
 
+const header = {
+  borderRadius: '5px 5px 0 0',
+  display: 'flex',
+  flexDireciont: 'column',
+  backgroundColor: appColors.primary,
+  heigth: '200px',
+};
+
 const containerContact = {
-  backgroundColor: '#f0fcff',
+  backgroundColor: appColors['primary-100'],
   width: '90%',
-  borderRadius: '5px',
+  borderRadius: '5px 5px 0 0',
   overflow: 'hidden',
-  paddingLeft: '20px',
+  padding: '20px',
 };
 
 const heading = {
-  fontSize: '14px',
+  fontSize: '24px',
   lineHeight: '26px',
   fontWeight: '700',
-  color: '#004dcf',
+  color: '#ffff',
   padding: '0 40px',
 };
 
@@ -212,16 +210,7 @@ const paragraph = {
   color: '#3c4043',
 };
 
-const link = {
-  ...paragraph,
-  color: '#004dcf',
-};
-
 const hr = {
   borderColor: '#e8eaed',
   margin: '20px 0',
-};
-
-const footer = {
-  maxWidth: '100%',
 };
