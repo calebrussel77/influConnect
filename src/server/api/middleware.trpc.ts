@@ -32,14 +32,14 @@ export function rateLimit({ limit, duration }: RateLimit = {}) {
       reset,
     } = await rateLimit.limit(identifier);
 
-    ctx.res.setHeader('X-RateLimit-Limit', limit);
-    ctx.res.setHeader('X-RateLimit-Remaining', remaining);
+    ctx.res.setHeader('X-RateLimit-Limit', limit.toString());
+    ctx.res.setHeader('X-RateLimit-Remaining', remaining.toString());
 
     if (!isSuccess) {
       const now = Date.now();
       const retryAfter = Math.floor((reset - now) / 1000);
 
-      ctx.res.setHeader('Retry-After', String(retryAfter));
+      ctx.res.setHeader('Retry-After', retryAfter.toString());
 
       throwRateLimitError('Too Many requests', { retryAfter });
     }

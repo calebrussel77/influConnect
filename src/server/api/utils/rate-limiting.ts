@@ -40,14 +40,14 @@ const isRateLimited = async (
     reset,
   } = await rateLimit.limit(`${resourceKey}::${requesterKey}`);
 
-  res.setHeader('X-RateLimit-Limit', limit);
-  res.setHeader('X-RateLimit-Remaining', remaining);
+  res.setHeader('X-RateLimit-Limit', limit.toString());
+  res.setHeader('X-RateLimit-Remaining', remaining.toString());
 
   if (!isSuccess) {
     const now = Date.now();
     const retryAfter = Math.floor((reset - now) / 1000);
-    res.setHeader('Retry-After', String(retryAfter));
-    res.setHeader('X-RateLimit-Remaining', 0);
+    res.setHeader('Retry-After', retryAfter.toString());
+    res.setHeader('X-RateLimit-Remaining', '0');
 
     res.status(429).json({ error: 'Too Many Requests' });
 
