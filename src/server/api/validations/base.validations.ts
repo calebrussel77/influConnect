@@ -22,3 +22,6 @@ export type GetAllQueryInput = z.infer<typeof getAllQuerySchema>;
 
 export const getByIdQuerySchema = z.object({ id: z.string() });
 export type GetByIdQueryInput = z.infer<typeof getByIdQuerySchema>;
+
+type Unit = 'ms' | 's' | 'm' | 'h' | 'd';
+export type Duration = `${number} ${Unit}` | `${number}${Unit}`;

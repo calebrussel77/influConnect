@@ -35,6 +35,9 @@ export const env = createEnv({
       val => val === true || val === 'true',
       z.boolean()
     ),
+    UPSTASH_REDIS_REST_URL: z.string(),
+    UPSTASH_REDIS_REST_TOKEN: z.string(),
+    RATE_LIMITING: z.string(),
   },
 
   /**
@@ -72,6 +75,9 @@ export const env = createEnv({
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASS: process.env.EMAIL_PASS,
     EMAIL_SECURE: process.env.EMAIL_SECURE,
+    UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
+    UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
+    RATE_LIMITING: process.env.RATE_LIMITING,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially

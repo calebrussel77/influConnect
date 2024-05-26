@@ -116,6 +116,10 @@ export type TrackRequest = {
   userAgent: string;
 };
 
+const client = new PostHog(env.NEXT_PUBLIC_POSTHOG_KEY, {
+  host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
+});
+
 export class Tracker {
   private _actor: TrackRequest = {
     userId: 'unknown',
@@ -150,10 +154,6 @@ export class Tracker {
         ...this._actor,
         ...custom,
       };
-
-      const client = new PostHog(env.NEXT_PUBLIC_POSTHOG_KEY, {
-        host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
-      });
 
       client.capture({
         distinctId: this._actor.userId,
