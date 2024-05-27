@@ -1,9 +1,9 @@
 import { CtaSubscribeSection } from './cta-subscribe-section';
+import { FaqSection } from './faq-section';
 import { FeaturesSection } from './features-section';
 import { HeroSection } from './hero-section';
 import { HowItWorksSection } from './how-it-works-section';
 import { WaitingListLayout } from './layouts';
-import { TestimonialsSection } from './testimonials-section';
 
 export function WaitingListMode() {
   return (
@@ -12,7 +12,8 @@ export function WaitingListMode() {
       <FeaturesSection />
       <HowItWorksSection />
       <CtaSubscribeSection />
-      <TestimonialsSection />
+      <FaqSection />
+      {/* <TestimonialsSection /> */}
     </WaitingListLayout>
   );
 }

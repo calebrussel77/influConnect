@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 import React, { useEffect, useRef, type PropsWithChildren } from 'react';
 import { motion, useInView, useAnimation } from 'framer-motion';
 import { cn } from '@/lib/utils';
@@ -5,16 +6,22 @@ import { cn } from '@/lib/utils';
 interface RevealProps {
   className?: string;
   width?: 'full' | 'fit-content';
+  as?: React.ElementType;
 }
 
 const Reveal = ({
   className,
   children,
   width = 'fit-content',
+  as,
 }: PropsWithChildren<RevealProps>) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const isInView = useInView(ref, { once: true });
   const animation = useAnimation();
+
+  //@ts-ignore
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+  const Component = as ? motion[as] : motion.div;
 
   useEffect(() => {
     if (isInView) {
@@ -23,7 +30,7 @@ const Reveal = ({
   }, [isInView]);
 
   return (
-    <motion.div
+    <Component
       ref={ref}
       className={cn(className)}
       style={{
@@ -39,7 +46,7 @@ const Reveal = ({
       transition={{ ease: 'easeInOut', delay: 0.15 }}
     >
       {children}
-    </motion.div>
+    </Component>
   );
 };
 

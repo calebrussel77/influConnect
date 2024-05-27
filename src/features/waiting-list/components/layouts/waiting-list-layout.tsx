@@ -8,17 +8,14 @@ import { ActiveLink } from '@/components/ui/active-link';
 import { Container } from '@/components/container';
 import Link from 'next/link';
 import { useIsMobile } from '@/hooks/use-beakpoints';
-import { Menu } from 'lucide-react';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { openContext } from '@/providers/modals-manager-provider';
+import { MobileNavbarSwitcher } from './mobile-navbar-switcher';
 
 interface MainProps extends Omit<SeoProps, 'children' | 'description'> {
   className?: string;
   description?: string | null;
   children?: ReactNode;
-}
-{
-  /* <Logo className="text-center" /> */
 }
 
 const navigation = {
@@ -31,10 +28,10 @@ const navigation = {
       name: 'Comment ça marche',
       href: '#how-it-works',
     },
-    // {
-    //   name: 'Forfaits',
-    //   href: '#pricing',
-    // },
+    {
+      name: 'Foire aux questions',
+      href: '#faq',
+    },
   ],
   social: [
     {
@@ -116,11 +113,11 @@ const Footer = () => {
     <footer className="mt-16 border-t">
       <Container className="mx-auto overflow-hidden py-20">
         <nav
-          className="-mb-6 columns-2 sm:flex sm:justify-center sm:space-x-12"
+          className="flex flex-wrap items-center justify-center gap-8"
           aria-label="Footer"
         >
           {navigation.main.map(item => (
-            <div key={item.name} className="pb-6">
+            <div key={item.name}>
               <Link
                 href={item.href}
                 className="text-sm leading-6 text-gray-600 hover:text-gray-900"
@@ -178,13 +175,7 @@ const Header = () => {
           </Button>
           <ThemeSwitcher className="hidden md:flex" />
         </div>
-        <Button
-          size="icon"
-          variant="ghost"
-          className="flex flex-shrink-0 md:hidden"
-        >
-          <Menu className="h-4 w-4" />
-        </Button>
+        <MobileNavbarSwitcher links={navigation.main as never} />
       </Container>
     </header>
   );

@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 import { Reveal } from '@/components/ui/reveal';
 
 export function HeroSection() {
-  const companyWords = ['Marques', 'Entreprises', 'PME'];
+  const companyWords = ['Marques', 'Startups', 'PME'];
   const customerWords = ['Influenceurs', 'Créateurs'];
 
   return (

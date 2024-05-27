@@ -77,9 +77,11 @@ export function HowItWorksSection() {
               </Typography>
             </Reveal>
           </div>
-          <Button onClick={() => openContext('subscribeWaitingList', {})}>
-            Commencer
-          </Button>
+          <Reveal width="full">
+            <Button onClick={() => openContext('subscribeWaitingList', {})}>
+              Commencer
+            </Button>
+          </Reveal>
         </div>
         {steps?.map((step, idx) => (
           <div

@@ -6,12 +6,12 @@ import { type Duration } from './validations/base.validations';
 
 type RateLimit = {
   limit?: number;
-  duration?: Duration; // seconds
+  duration?: Duration;
 };
 
 const cache = new Map();
 
-// Default : Create a new ratelimiter, that allows 10 requests per 10 seconds
+// Default : Create a ratelimiter, that allows maximum 10 requests for 10 seconds
 export function rateLimit({ limit, duration }: RateLimit = {}) {
   limit ??= 10;
   duration ??= '10 s';
