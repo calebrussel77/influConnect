@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Form, InputText, useZodForm } from '@/components/ui/form';
 import { useIsMobile } from '@/hooks/use-beakpoints';
 import { cn } from '@/lib/utils';
-import { createWaitingListSubscriptionSchema } from '@/server/api/modules/waiting-list/waiting-list.schema';
+import { createWaitingListSubscriptionSchema } from '@/server/api/modules/waiting-list/schema';
 import { api } from '@/utils/api';
 import React, { type PropsWithChildren } from 'react';
 import { toast } from 'sonner';
