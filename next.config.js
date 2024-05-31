@@ -8,21 +8,51 @@ await import('./src/env.js');
 const config = {
   reactStrictMode: true,
   images: {
-    domains: [
-      'res.cloudinary.com',
-      'lh3.googleusercontent.com',
-      'pbs.twimg.com',
-      'picsum.photos',
-      'cloudflare-ipfs.com',
-      'naver.github.io',
-      'avatars.githubusercontent.com',
-      'uploadthing.com',
-      'randomuser.me',
-      'images.unsplash.com',
-      'tailwindui.com',
-      'utfs.io',
-      'localhost',
-      'loremflickr.com',
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'pbs.twimg.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+      {
+        protocol: 'https',
+        hostname: 'cloudflare-ipfs.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'uploadthing.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'tailwindui.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'loremflickr.com',
+      },
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+      },
     ],
   },
   /**

@@ -10,6 +10,10 @@ import { TRPCError, initTRPC } from '@trpc/server';
 import superjson from 'superjson';
 
 import { type Context } from './create-context';
+import { type NextApiRequest } from 'next';
+import { REDIS_KEYS, redis } from '@/lib/redis';
+import semVer from 'semver';
+import { deSerialize } from '@/utils/text';
 
 /**
  * 2. INITIALIZATION
@@ -26,6 +30,32 @@ const t = initTRPC.context<Context>().create({
   },
 });
 
+async function needsUpdate(req?: NextApiRequest) {
+  const type = req?.headers['x-client'] as string;
+  const version = req?.headers['x-client-version'] as string;
+  const date = req?.headers['x-client-date'] as string;
+
+  if (type !== 'web') return false;
+
+  const client = await redis.hgetall<{
+    version?: string;
+    date?: string;
+  }>(REDIS_KEYS.CLIENT);
+
+  if (!client) return true;
+
+  if (client.version) {
+    if (!version || version === 'unknown') return true;
+    return semVer.lt(version, client.version);
+  }
+  if (client.date) {
+    if (!date) return true;
+    return new Date(Number(date)) < new Date(client.date);
+  }
+
+  return false;
+}
+
 /**
  * 3. ROUTER & PROCEDURE (THE IMPORTANT BIT)
  *
@@ -41,15 +71,20 @@ const t = initTRPC.context<Context>().create({
 export const createTRPCRouter = t.router;
 
 /**
- * Public (unauthenticated) procedure
- *
- * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
- * guarantee that a user querying is authorized, but you can still access user session data if they
- * are logged in.
+ * Enforce client version
  */
-export const publicProcedure = t.procedure;
+export const enforceClientVersion = t.middleware(async ({ next, ctx }) => {
+  console.log('enforceClientVersion called');
 
-export const { router, middleware } = t;
+  console.log({ needsUpdate: await needsUpdate(ctx.req) });
+
+  if (await needsUpdate(ctx.req)) {
+    console.log('enforceClientVersion is set to TRUE');
+    ctx.res?.setHeader('X-Update-Required', 'true');
+    ctx.cache.edgeTTL = 0;
+  }
+  return next({ ctx });
+});
 
 /**
  * Protected middleware
@@ -62,6 +97,17 @@ const isAuthed = t.middleware(({ ctx: { user }, next }) => {
     ctx: { user },
   });
 });
+
+export const { router, middleware } = t;
+
+/**
+ * Public (unauthenticated) procedure
+ *
+ * This is the base piece you use to build new queries and mutations on your tRPC API. It does not
+ * guarantee that a user querying is authorized, but you can still access user session data if they
+ * are logged in.
+ */
+export const publicProcedure = t.procedure.use(enforceClientVersion);
 
 /**
  * Protected Procedure used when the user is connected

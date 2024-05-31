@@ -10,12 +10,34 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server';
 import superjson from 'superjson';
 
 import { type AppRouter } from '@/server/api/root';
+import { QueryClient } from '@tanstack/react-query';
+import { CLIENT_VERSION } from '@/constants';
+
+const headers = {
+  'x-client-version': CLIENT_VERSION,
+  'x-client-date': Date.now().toString(),
+  'x-client': 'web',
+};
+
+console.log(process.env.NEXT_PUBLIC_VERSION);
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 3,
+      staleTime: Infinity,
+    },
+  },
+});
 
 const getBaseUrl = () => {
   if (typeof window !== 'undefined') return ''; // browser should use relative url
   if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
   return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
 };
+
+const url = `${getBaseUrl()}/api/trpc`;
 
 /** A set of type-safe react-query hooks for your tRPC API. */
 export const api = createTRPCNext<AppRouter>({
@@ -27,6 +49,7 @@ export const api = createTRPCNext<AppRouter>({
        * @see https://trpc.io/docs/links
        */
       links: [
+        // adds pretty logs to your console in development and logs errors in production
         loggerLink({
           enabled: opts =>
             process.env.NODE_ENV === 'development' ||
@@ -39,7 +62,8 @@ export const api = createTRPCNext<AppRouter>({
            * @see https://trpc.io/docs/data-transformers
            */
           transformer: superjson,
-          url: `${getBaseUrl()}/api/trpc`,
+          headers,
+          url,
         }),
       ],
     };

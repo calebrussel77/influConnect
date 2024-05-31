@@ -7,6 +7,7 @@ import { type PageProps } from '@/types';
 import { Toaster } from '@/components/ui/sonner';
 import { ModalsManagerProvider } from './modals-manager-provider';
 import { PosthogProvider } from './posthog-provider';
+import { UpdateRequiredWatcher } from '@/components/update-required-watcher';
 
 type ProvidersProps = {
   session: Session | null;
@@ -34,6 +35,7 @@ const Providers = ({
         >
           <PosthogProvider>
             <ModalsManagerProvider>{children}</ModalsManagerProvider>
+            <UpdateRequiredWatcher />
             <Toaster position="bottom-right" duration={900000} />
           </PosthogProvider>
         </ThemeProvider>

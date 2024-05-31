@@ -41,6 +41,7 @@ export const createContext = async ({
     ip,
     cache,
     res,
+    req,
   };
 };
 

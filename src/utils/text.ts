@@ -29,11 +29,19 @@ export const truncateOnWord = (
 };
 
 export const deSerialize = <T>(jsonString: string | null) => {
-  if (!jsonString) return null;
+  try {
+    if (!jsonString) return null;
 
-  return JSON.parse(jsonString) as T;
+    return JSON.parse(jsonString) as T;
+  } catch (error) {
+    return null;
+  }
 };
 
 export const serialize = (object: unknown) => {
-  return JSON.stringify(object);
+  try {
+    return JSON.stringify(object);
+  } catch (error) {
+    return null;
+  }
 };

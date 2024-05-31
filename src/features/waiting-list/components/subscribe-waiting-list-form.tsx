@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Button } from '@/components/ui/button';
 import { Form, InputText, useZodForm } from '@/components/ui/form';
+import { useIsMobile } from '@/hooks/use-beakpoints';
 import { cn } from '@/lib/utils';
 import { createWaitingListSubscriptionSchema } from '@/server/api/modules/waiting-list/waiting-list.schema';
 import { api } from '@/utils/api';
@@ -17,6 +18,8 @@ const SubscribeWaitingListForm = ({
   className,
   onSuccess,
 }: PropsWithChildren<SubscribeWaitingListFormProps>) => {
+  const isMobile = useIsMobile();
+
   const form = useZodForm({
     schema: createWaitingListSubscriptionSchema,
   });
@@ -50,7 +53,7 @@ const SubscribeWaitingListForm = ({
     >
       <InputText
         name="email"
-        autoFocus
+        autoFocus={!isMobile}
         placeholder="Entrez votre adresse email"
         isFullWidth
         required

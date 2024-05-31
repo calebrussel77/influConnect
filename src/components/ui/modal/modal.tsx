@@ -20,6 +20,7 @@ import {
   DrawerTitle,
 } from '../drawer';
 import { cva } from 'class-variance-authority';
+import { NoSSR } from '../no-ssr';
 
 type ClassNames = {
   title?: string;
@@ -115,7 +116,7 @@ export type ModalHeaderProps = Omit<
   React.HTMLAttributes<HTMLDivElement>,
   'title'
 > & {
-  withCloseIcon?: boolean;
+  withCloseButton?: boolean;
   title?: React.ReactNode;
   description?: React.ReactNode;
   classNames?: Pick<ClassNames, 'title' | 'description'>;
@@ -127,7 +128,7 @@ export type ModalHeaderProps = Omit<
 const DialogHeader = ({
   className,
   title,
-  withCloseIcon = true,
+  withCloseButton = true,
   classNames,
   description,
   onClose,
@@ -151,7 +152,7 @@ const DialogHeader = ({
         </DialogDescription>
       )}
     </div>
-    {withCloseIcon && (
+    {withCloseButton && (
       <DialogPrimitive.Close asChild>
         <CloseButton
           onClick={onClose}
@@ -231,6 +232,7 @@ export interface ModalProps
   isFullScreen?: boolean;
   closeOnClickOutside?: boolean;
   hidePaddingContent?: boolean;
+  withCloseButton?: boolean;
   title?: React.ReactNode;
   description?: React.ReactNode;
   footer?: React.ReactNode;
@@ -251,6 +253,7 @@ const ContextModal = React.forwardRef<
       style,
       closeOnClickOutside = true,
       hidePaddingContent = false,
+      withCloseButton,
       title,
       description,
       footer,
@@ -288,6 +291,7 @@ const ContextModal = React.forwardRef<
                   <DialogHeader
                     title={title}
                     description={description}
+                    withCloseButton={withCloseButton}
                     onClose={onClose}
                   />
                 )}
@@ -308,29 +312,31 @@ const ContextModal = React.forwardRef<
     }
 
     return (
-      <Drawer
-        onClose={onClose}
-        dismissible={!isFullScreen || !closeOnClickOutside}
-        open={open}
-        {...rest}
-      >
-        <DrawerContent
-          onInteractOutside={handleInteractOutside}
-          ref={ref}
-          isFullScreen={isFullScreen}
+      <NoSSR>
+        <Drawer
+          onClose={onClose}
+          dismissible={!isFullScreen || !closeOnClickOutside}
+          open={open}
+          {...rest}
         >
-          {hasHeader && (
-            <DrawerHeader className="text-left">
-              <DrawerTitle>{title}</DrawerTitle>
-              <DrawerDescription>{description}</DrawerDescription>
-            </DrawerHeader>
-          )}
-          <div className={cn('relative', hidePaddingContent ? 'p-0' : 'p-4')}>
-            {children}
-          </div>
-          {footer && <DrawerFooter>{footer}</DrawerFooter>}
-        </DrawerContent>
-      </Drawer>
+          <DrawerContent
+            onInteractOutside={handleInteractOutside}
+            ref={ref}
+            isFullScreen={isFullScreen}
+          >
+            {hasHeader && (
+              <DrawerHeader className="text-left">
+                <DrawerTitle>{title}</DrawerTitle>
+                <DrawerDescription>{description}</DrawerDescription>
+              </DrawerHeader>
+            )}
+            <div className={cn('relative', hidePaddingContent ? 'p-0' : 'p-4')}>
+              {children}
+            </div>
+            {footer && <DrawerFooter>{footer}</DrawerFooter>}
+          </DrawerContent>
+        </Drawer>
+      </NoSSR>
     );
   }
 );
@@ -383,20 +389,22 @@ const Modal = React.forwardRef<
     }
 
     return (
-      <Drawer
-        onClose={onClose}
-        dismissible={!isFullScreen || !closeOnClickOutside}
-        open={open}
-        {...rest}
-      >
-        <DrawerContent
-          ref={ref}
-          isFullScreen={isFullScreen}
-          onInteractOutside={handleInteractOutside}
+      <NoSSR>
+        <Drawer
+          onClose={onClose}
+          dismissible={!isFullScreen || !closeOnClickOutside}
+          open={open}
+          {...rest}
         >
-          {children}
-        </DrawerContent>
-      </Drawer>
+          <DrawerContent
+            ref={ref}
+            isFullScreen={isFullScreen}
+            onInteractOutside={handleInteractOutside}
+          >
+            {children}
+          </DrawerContent>
+        </Drawer>
+      </NoSSR>
     );
   }
 );

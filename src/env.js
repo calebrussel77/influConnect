@@ -50,6 +50,7 @@ export const env = createEnv({
     NEXT_PUBLIC_APP_NAME: z.string(),
     NEXT_PUBLIC_POSTHOG_KEY: z.string(),
     NEXT_PUBLIC_POSTHOG_HOST: z.string(),
+    NEXT_PUBLIC_VERSION: z.string(),
   },
 
   /**
@@ -78,6 +79,7 @@ export const env = createEnv({
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     RATE_LIMITING: process.env.RATE_LIMITING,
+    NEXT_PUBLIC_VERSION: process.env.NEXT_PUBLIC_VERSION,
   },
   /**
    * Run `build` or `dev` with `SKIP_ENV_VALIDATION` to skip env validation. This is especially
