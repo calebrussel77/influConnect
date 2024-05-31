@@ -23,7 +23,8 @@ export const CloseButton = forwardRef<
     <button
       ref={ref}
       className={cn(
-        'flex items-center justify-center rounded-full border bg-accent bg-slate-200 p-2 text-muted-foreground opacity-70 ring-offset-background transition-opacity hover:opacity-100 disabled:pointer-events-none',
+        'flex items-center justify-center rounded-full border border-slate-200 bg-slate-200 p-2 text-muted-foreground',
+        'opacity-70 ring-offset-background transition-opacity hover:opacity-100 disabled:pointer-events-none dark:bg-slate-400 dark:text-white',
         sizeClassNames?.btn,
         className
       )}
