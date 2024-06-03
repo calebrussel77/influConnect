@@ -10,8 +10,8 @@ export type HeadSeoProps = {
   nextSeoProps?: NextSeoProps;
 };
 
-export const OG_WIDTH = 500; //1200
-export const OG_HEIGHT = 500; //630
+export const OG_WIDTH = 1200;
+export const OG_HEIGHT = 628;
 export const DEFAULT_SEO_TITLE = `InfluConnect - Où les Marques et les Créateurs se rencontrent pour innover`;
 export const DEFAULT_SEO_DESCRIPTION =
   'Rejoignez la première plateforme qui connecte directement les marques avec des créateurs les plus adaptés, pour des campagnes authentiques et mesurables.';
