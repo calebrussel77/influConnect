@@ -1,4 +1,5 @@
 import { APP_NAME, APP_URL } from '@/constants';
+import { getBaseUrl } from '@/utils/url-helpers';
 import { type DefaultSeoProps, type NextSeoProps } from 'next-seo';
 
 export type HeadSeoProps = {
@@ -10,17 +11,17 @@ export type HeadSeoProps = {
   nextSeoProps?: NextSeoProps;
 };
 
-export const OG_WIDTH = 1200;
-export const OG_HEIGHT = 630;
-export const DEFAULT_SEO_TITLE = `InfluConnect - Connectez vos besoins aux meilleurs talents de votre région`;
+export const OG_WIDTH = 500; //1200
+export const OG_HEIGHT = 500; //630
+export const DEFAULT_SEO_TITLE = `InfluConnect - Où les Marques et les Créateurs se rencontrent pour innover`;
 export const DEFAULT_SEO_DESCRIPTION =
-  'Trouvez les talents dont vous avez besoin pour répondre à vos besoins, ou proposez vos compétences pour aider les autres. Réunissez vos besoins avec les talents locaux sur notre plateforme de mise en relation. La clé pour transformer vos idées en réalité';
+  'Rejoignez la première plateforme qui connecte directement les marques avec des créateurs les plus adaptés, pour des campagnes authentiques et mesurables.';
 
-export const DEFAULT_SEO_IMAGE_PREVIEW = '';
+export const DEFAULT_SEO_IMAGE_PREVIEW = `${getBaseUrl()}/influconnect-preview.png`;
 
 /**
  * This function builds a canonical URL from a given host and path omitting the query params. Note: on homepage it omits the trailing slash
- * @param origin The protocol + host, e.g. `https://agorasafe.com` or `https://agorasafe.dev`
+ * @param origin The protocol + host, e.g. `https://influconnect.com` or `https://influconnect.dev`
  * @param path NextJS' useRouter().asPath
  * @returns
  */

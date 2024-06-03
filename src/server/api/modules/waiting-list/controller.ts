@@ -1,5 +1,8 @@
 import { type Context } from '../../create-context';
-import { throwDbError, throwForbiddenError } from '../../utils/error-handling';
+import {
+  throwDbError,
+  throwForbiddenError,
+} from '../../../utils/error-handling';
 import { type CreateWaitingListSubscriptionInput } from './schema';
 import blockedDomains from '@/data/email-domain-blocklist.json';
 

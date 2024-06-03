@@ -14,7 +14,7 @@ const Footer: FC<FooterProps> = () => {
         {/* <LogoIcon className="mx-auto h-5 w-auto md:h-6" /> */}
         <Logo className="text-center" />
         <p className="mt-5 text-center text-sm leading-6 text-slate-500">
-          &copy; {new Date().getFullYear()} Agorasafe. Tous droits réservés.
+          &copy; {new Date().getFullYear()} influconnect. Tous droits réservés.
         </p>
         <div className="mt-3 flex items-center justify-center gap-1 text-center text-sm leading-6 text-slate-500">
           Build by{' '}

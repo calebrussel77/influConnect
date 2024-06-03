@@ -9,12 +9,12 @@ import { openContext } from '@/providers/modals-manager-provider';
 import { Menu } from 'lucide-react';
 import { Fragment } from 'react';
 
-export function MobileNavbarSwitcher({
+export function MobileNavbarSidebar({
   links,
 }: {
   links: [{ name: string; href: string }];
 }) {
-  const { onClose, isOpen, onOpen, toggle } = useDisclosure();
+  const { onClose, isOpen, toggle } = useDisclosure();
 
   return (
     <Sheet onOpenChange={toggle} open={isOpen}>
@@ -22,7 +22,7 @@ export function MobileNavbarSwitcher({
         <Button
           size="icon"
           variant="ghost"
-          className="flex flex-shrink-0 md:hidden"
+          className="flex flex-shrink-0 lg:hidden"
         >
           <Menu className="h-5 w-5" />
         </Button>

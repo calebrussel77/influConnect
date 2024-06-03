@@ -16,7 +16,6 @@ import { APP_URL, isMaintenanceMode } from '@/constants';
 import { type NextPage } from 'next';
 import { type ReactElement, type ReactNode, useMemo } from 'react';
 import { MainLayout } from '@/components/layouts';
-import { DefaultSeo } from 'next-seo';
 import { buildCanonical } from '@/lib/next-seo-config';
 import { WaitingListMode } from '@/features/waiting-list';
 import { cn } from '@/lib/utils';
@@ -24,6 +23,7 @@ import { env } from '@/env';
 import { isDev } from '@/constants';
 import { isWindowDefined } from '@/utils/type-guards';
 import posthog from 'posthog-js';
+import { DefaultSeo } from '@/components/ui/default-seo';
 
 type CustomNextPage = NextPage & {
   getLayout?: (page: ReactElement, router: AppProps['router']) => ReactNode;

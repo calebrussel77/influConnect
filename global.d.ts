@@ -6,6 +6,10 @@ import { type NextPage } from 'next';
 type Messages = typeof en;
 
 declare global {
+  type InferNextProps<T extends (args: any) => any> = Awaited<
+    Extract<Awaited<ReturnType<T>>, { props: any }>['props']
+  >;
+
   // Use type safe message keys with `next-intl`
   interface IntlMessages extends Messages {}
 

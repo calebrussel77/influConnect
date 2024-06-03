@@ -50,4 +50,4 @@ export interface ModalsContextProps {
 }
 
 export const ModalsContext = createContext<ModalsContextProps>(null as never);
-ModalsContext.displayName = '@agorasafe/modals/ModalsContext';
+ModalsContext.displayName = '@influconnect/modals/ModalsContext';

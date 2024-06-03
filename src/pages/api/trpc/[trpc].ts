@@ -2,7 +2,7 @@ import { createNextApiHandler } from '@trpc/server/adapters/next';
 
 import { appRouter } from '@/server/api/root';
 import { createContext } from '@/server/api/create-context';
-import { handleTRPCError } from '@/server/api/utils/error-handling';
+import { handleTRPCError } from '@/server/utils/error-handling';
 import { isDev } from '@/constants';
 
 // export API handler

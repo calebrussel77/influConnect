@@ -12,6 +12,7 @@ import superjson from 'superjson';
 import { type AppRouter } from '@/server/api/root';
 import { QueryClient } from '@tanstack/react-query';
 import { CLIENT_VERSION } from '@/constants';
+import { getBaseUrl } from './url-helpers';
 
 const headers = {
   'x-client-version': CLIENT_VERSION,
@@ -30,12 +31,6 @@ export const queryClient = new QueryClient({
     },
   },
 });
-
-const getBaseUrl = () => {
-  if (typeof window !== 'undefined') return ''; // browser should use relative url
-  if (process.env.VERCEL_URL) return `https://${process.env.VERCEL_URL}`; // SSR should use vercel url
-  return `http://localhost:${process.env.PORT ?? 3000}`; // dev SSR should use localhost
-};
 
 const url = `${getBaseUrl()}/api/trpc`;
 

@@ -7,7 +7,7 @@ import { type NextApiRequest, type NextApiResponse } from 'next';
 import requestIp from 'request-ip';
 
 import { getServerAuthSession } from '../auth';
-import { Tracker } from './utils/tracker';
+import { Tracker } from '../utils/tracker';
 
 type CacheSettings = {
   browserTTL?: number;

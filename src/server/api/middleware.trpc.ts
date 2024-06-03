@@ -1,6 +1,6 @@
 import { middleware } from './trpc';
 import { Ratelimit } from '@upstash/ratelimit';
-import { throwRateLimitError } from './utils/error-handling';
+import { throwRateLimitError } from '../utils/error-handling';
 import { redis } from '@/lib/redis';
 import { type Duration } from './validations/base.validations';
 

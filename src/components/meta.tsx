@@ -14,14 +14,14 @@ const Meta = () => {
       />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="apple-mobile-web-app-capable" content="yes" />
-      <meta name="application-name" content="agorasafe" />
-      <meta name="apple-mobile-web-app-title" content="agorasafe" />
+      <meta name="application-name" content="influconnect" />
+      <meta name="apple-mobile-web-app-title" content="influconnect" />
       <meta name="theme-color" content="#ffff" />
       <meta name="msapplication-navbutton-color" content="#ffff" />
       <meta name="author" content="Caleb Russel" />
       <meta
         name="keywords"
-        content="influenceur, mise en relation, entreprises, cameroun"
+        content="créateurs de contenu, marketing d'influence, plateforme pour influenceurs, collaboration marque-influenceur"
       />
       <meta
         name="apple-mobile-web-app-status-bar-style"

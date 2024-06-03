@@ -10,7 +10,7 @@ import Link from 'next/link';
 import { useIsMobile } from '@/hooks/use-beakpoints';
 import { ThemeSwitcher } from '@/components/theme-switcher';
 import { openContext } from '@/providers/modals-manager-provider';
-import { MobileNavbarSwitcher } from './mobile-navbar-switcher';
+import { MobileNavbarSidebar } from './mobile-navbar-sidebar';
 
 interface MainProps extends Omit<SeoProps, 'children' | 'description'> {
   className?: string;
@@ -152,9 +152,9 @@ const Header = () => {
 
   return (
     <header className="sticky inset-x-0 -top-0 z-50 w-full border-b bg-white/60 backdrop-blur-sm dark:bg-background/60">
-      <Container className="flex items-center justify-between gap-3 py-3">
+      <Container className="flex items-center justify-between gap-3 px-4 py-3">
         <Logo />
-        <div className="hidden items-start justify-start gap-[31px] md:flex">
+        <div className="hidden items-start justify-start gap-[31px] lg:flex">
           {navigation.main?.map(item => (
             <ActiveLink
               key={item.name}
@@ -165,17 +165,17 @@ const Header = () => {
             </ActiveLink>
           ))}
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
           <Button
-            size={isMobile ? 'sm' : 'default'}
+            size={isMobile ? 'xs' : 'default'}
             onClick={() => openContext('subscribeWaitingList', {})}
             className="text-xs md:text-sm"
           >
             Rejoindre la liste d’attente
           </Button>
-          <ThemeSwitcher className="hidden md:flex" />
+          <ThemeSwitcher />
+          <MobileNavbarSidebar links={navigation.main as never} />
         </div>
-        <MobileNavbarSwitcher links={navigation.main as never} />
       </Container>
     </header>
   );

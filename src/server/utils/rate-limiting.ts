@@ -2,7 +2,7 @@ import { redis } from '@/lib/redis';
 import { getServerAuthSession } from '@/server/auth';
 import { Ratelimit } from '@upstash/ratelimit';
 import { type NextApiRequest, type NextApiResponse } from 'next';
-import { type Duration } from '../validations/base.validations';
+import { type Duration } from '../api/validations/base.validations';
 import { env } from '@/env';
 import requestIp from 'request-ip';
 
@@ -60,7 +60,7 @@ const isRateLimited = async (
   return false;
 };
 
-export const RateLimitedEndpoint =
+export const rateLimitedEndpoint =
   (
     handler: (
       req: NextApiRequest,

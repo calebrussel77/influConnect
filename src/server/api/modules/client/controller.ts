@@ -1,6 +1,6 @@
 import { CLIENT_VERSION } from '@/constants';
 import { type Context } from '../../create-context';
-import { throwDbError } from '../../utils/error-handling';
+import { throwDbError } from '../../../utils/error-handling';
 
 import { REDIS_KEYS, redis } from '@/lib/redis';
 

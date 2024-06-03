@@ -2,7 +2,7 @@ import { slugit } from '@/utils/strings';
 import { throwDbError } from './error-handling';
 import { getRandomId } from '@/utils/misc';
 
-export const getFieldSlug = async (
+export const getSlugifiedField = async (
   field: string,
   queryCondition: (slug: string) => Promise<unknown>
 ) => {

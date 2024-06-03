@@ -7,13 +7,15 @@ import { WaitingListLayout } from './layouts';
 
 export function WaitingListMode() {
   return (
-    <WaitingListLayout>
-      <HeroSection />
-      <FeaturesSection />
-      <HowItWorksSection />
-      <CtaSubscribeSection />
-      <FaqSection />
-      {/* <TestimonialsSection /> */}
-    </WaitingListLayout>
+    <>
+      <WaitingListLayout>
+        <HeroSection />
+        <FeaturesSection />
+        <HowItWorksSection />
+        <CtaSubscribeSection />
+        <FaqSection />
+        {/* <TestimonialsSection /> */}
+      </WaitingListLayout>
+    </>
   );
 }

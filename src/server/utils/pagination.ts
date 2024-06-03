@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 
-import { type PaginationInput } from '../validations/base.validations';
+import { type PaginationInput } from '../api/validations/base.validations';
 
 export const DEFAULT_PAGE_SIZE = 20;
 
@@ -24,44 +24,6 @@ export function getPagingData<T>(
 
   return { items, totalItems, currentPage, pageSize, totalPages };
 }
-
-// export function getPaginationLinks({
-//   req,
-//   totalPages,
-//   currentPage,
-// }: {
-//   req: NextApiRequest;
-//   totalPages: number;
-//   currentPage: number;
-// }) {
-//   const baseUrl = new URL(
-//     req.url ?? '/',
-//     isProd ? `https://${req.headers.host}` : 'http://localhost:3000'
-//   );
-//   const hasNextPage = currentPage < totalPages;
-//   const hasPrevPage = totalPages > 1 && currentPage > 1;
-//   const nextPageQueryString = hasNextPage
-//     ? QS.stringify({
-//         ...req.query,
-//         page: currentPage + 1,
-//       })
-//     : '';
-//   const prevPageQueryString = hasPrevPage
-//     ? QS.stringify({
-//         ...req.query,
-//         page: currentPage - 1,
-//       })
-//     : '';
-
-//   const nextPage = hasNextPage
-//     ? `${baseUrl.origin}${baseUrl.pathname}?${nextPageQueryString}`
-//     : undefined;
-//   const prevPage = hasPrevPage
-//     ? `${baseUrl.origin}${baseUrl.pathname}?${prevPageQueryString}`
-//     : undefined;
-
-//   return { nextPage, prevPage, baseUrl };
-// }
 
 export async function getPagedData<TQuery extends PaginationInput, TData>(
   { page, limit, ...rest }: TQuery,
