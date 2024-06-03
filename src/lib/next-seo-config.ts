@@ -1,5 +1,4 @@
 import { APP_NAME, APP_URL } from '@/constants';
-import { getBaseUrl } from '@/utils/url-helpers';
 import { type DefaultSeoProps, type NextSeoProps } from 'next-seo';
 
 export type HeadSeoProps = {
@@ -17,7 +16,7 @@ export const DEFAULT_SEO_TITLE = `InfluConnect - Où les Marques et les Créateu
 export const DEFAULT_SEO_DESCRIPTION =
   'Rejoignez la première plateforme qui connecte directement les marques avec des créateurs les plus adaptés, pour des campagnes authentiques et mesurables.';
 
-export const DEFAULT_SEO_IMAGE_PREVIEW = `${getBaseUrl()}/influconnect-preview.png`;
+export const DEFAULT_SEO_IMAGE_PREVIEW = `${APP_URL}/influconnect-preview.png`;
 
 /**
  * This function builds a canonical URL from a given host and path omitting the query params. Note: on homepage it omits the trailing slash
