@@ -298,7 +298,7 @@ const AvatarGroup = ({
       )}
     >
       {data?.slice(0, maxAvatar)?.map((avatarData, idx) => {
-        const callback = avatarData.onClick || onAvatarClick;
+        const callback = avatarData.onClick ?? onAvatarClick;
         // const href = avatarData?.href
         const finalAvatar = getOverrides(overrides).Avatar.render(
           avatar,

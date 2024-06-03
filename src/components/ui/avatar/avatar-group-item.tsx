@@ -21,7 +21,7 @@ const AvatarGroupItem: FC<AvatarGroupItemProps> = ({
   const AvatarIcon = <Avatar {...rest} />;
 
   // onClick handler provided with avatar data takes precedence, same as with the normal avatar item
-  const callback = onClick || onAvatarClick;
+  const callback = onClick ?? onAvatarClick;
 
   if (href) {
     return (
