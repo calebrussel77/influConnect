@@ -48,7 +48,7 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    deletionDate  DateTime?
+    deletedAt     DateTime?
     accounts      Account[]
     sessions      Session[]
     isModerator   Boolean?  @default(false)

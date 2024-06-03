@@ -128,7 +128,7 @@ export const authOptions: NextAuthOptions = {
         token.user = await getSessionUser({ userId: String(token.sub) });
       } else {
         if (user) token.user = user;
-        const { deletionDate, ...restUser } = token.user as User;
+        const { deletedAt, ...restUser } = token.user as User;
         token.user = { ...restUser };
       }
       if (!token.id) token.id = randomUUID();

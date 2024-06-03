@@ -3,14 +3,12 @@ import { type Prisma } from '@prisma/client';
 
 export const getSessionUser = async ({ userId }: { userId?: string }) => {
   if (!userId) return undefined;
-  const where: Prisma.UserWhereInput = { deletionDate: null };
+  const where: Prisma.UserWhereInput = { deletedAt: null };
   if (userId) where.id = userId;
 
   const response = await db.user.findFirst({
     where,
   });
-
-  console.log('Called getSessionUser', { response });
 
   if (!response) return undefined;
 
@@ -24,7 +22,7 @@ export const getSessionUser = async ({ userId }: { userId?: string }) => {
     email: response.email ?? undefined,
     emailVerified: response.emailVerified ?? undefined,
     isModerator: response.isModerator ?? undefined,
-    deletionDate: response.deletionDate ?? undefined,
+    deletedAt: response.deletedAt ?? undefined,
     createdAt: response.createdAt ?? undefined,
   };
 

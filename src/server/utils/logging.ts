@@ -3,16 +3,17 @@
 import { isDev } from '@/constants';
 import chalk from 'chalk';
 import { env } from '@/env';
+import { db } from '../db';
 
 export async function logToDb(event: string, details: object) {
   if (isDev) return; // Don't log in dev
   try {
-    // await db.log.createMany({
-    //   data: {
-    //     event,
-    //     details,
-    //   },
-    // });
+    await db.log.createMany({
+      data: {
+        event,
+        details,
+      },
+    });
   } catch (e) {
     console.error('Failed to log', e);
   }
