@@ -5,9 +5,8 @@ import {
 } from '../../../utils/error-handling';
 import { type CreateWaitingListSubscriptionInput } from './schema';
 import blockedDomains from '@/data/email-domain-blocklist.json';
-
-import * as emailTemplates from '@/emails';
-import { sendEmail } from '@/emails/client';
+import { sendEmail } from '@/lib/email';
+import InfluconnectWaitingList from '@/emails/influconnect-waiting-list';
 
 export const createWaitingListSubscriptionHandler = async ({
   ctx,
@@ -26,7 +25,7 @@ export const createWaitingListSubscriptionHandler = async ({
     }
 
     await sendEmail({
-      component: emailTemplates.InfluconnectWaitingList(),
+      component: InfluconnectWaitingList(),
       subject: 'Bienvenue à bord de InfluConnect ! 🎉',
       to: input.email,
     });

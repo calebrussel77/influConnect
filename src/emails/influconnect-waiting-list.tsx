@@ -1,4 +1,4 @@
-import { appColors } from '../../utils/variants';
+import { appColors } from '../utils/variants';
 import {
   Body,
   Container,

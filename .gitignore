@@ -43,4 +43,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 
-.react-email
+# email
+/.react-email/
+
+.vscode
