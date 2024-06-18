@@ -27,7 +27,7 @@ export const InfluconnectWaitingList = () => (
         fontFamily="Roboto"
         fallbackFontFamily="Verdana"
         webFont={{
-          url: 'https://fonts.gstatic.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
+          url: 'https://fonts.gimages.com/s/roboto/v27/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2',
           format: 'woff2',
         }}
         fontWeight={400}

@@ -30,6 +30,7 @@ const MAX_COUNT = {
 type AvatarMoreProps = AvatarProps & {
   name: string;
   enableTooltip?: boolean;
+  className?: string;
   key?: string | number;
   disabled?: boolean;
 };
@@ -129,6 +130,16 @@ export interface AvatarGroupProps {
       When there are several AvatarGroups on the page you should use a unique label to let users distinguish different lists.
      */
   name?: string;
+
+  /**
+   * Custom className for the `AvatarGroup`
+   */
+  className?: string;
+
+  /**
+   * Number of more avatars to show in the overflow menu
+   */
+  moreCount?: number;
 }
 
 interface AvatarGroupOverrides {
@@ -203,7 +214,9 @@ const AvatarGroup = ({
   maxCount,
   onAvatarClick,
   onMoreClick,
+  moreCount,
   overrides,
+  className,
   showMoreButtonProps = {},
   size = 'md',
   name = 'avatar group',
@@ -230,11 +243,13 @@ const AvatarGroup = ({
       return (
         <MoreIndicator
           buttonProps={showMoreButtonProps}
-          count={total - max}
+          count={moreCount ? moreCount : total - max}
           size={size}
           className={cn(
-            'focus:ring-brand-primary-100 relative transform rounded-full ring-2 ring-slate-100 transition duration-200 focus:scale-95',
-            props.isOpen && 'ring-brand-primary-100'
+            'focus:ring-brand-primary-100 relative transform rounded-full ring-2 ring-slate-100 transition duration-200 focus:scale-95 dark:ring-slate-900',
+            props.isOpen && 'ring-brand-primary-100',
+            size === 'sm' ? 'text-xs' : 'text-base',
+            'bg-slate-200 dark:bg-slate-800'
           )}
           {...props}
         />
@@ -294,31 +309,35 @@ const AvatarGroup = ({
         appearance === 'stack' &&
           'isolate flex items-start -space-x-1.5 overflow-hidden p-0.5',
         appearance === 'grid' &&
-          'isolate grid grid-cols-4 place-items-start gap-3'
+          'isolate grid grid-cols-4 place-items-start gap-3',
+        className
       )}
     >
       {data?.slice(0, maxAvatar)?.map((avatarData, idx) => {
+        const { className, ...avatarDataRest } = avatarData;
+
         const callback = avatarData.onClick ?? onAvatarClick;
         // const href = avatarData?.href
         const finalAvatar = getOverrides(overrides).Avatar.render(
           avatar,
           {
-            ...avatarData,
-            alt: avatarData.name,
+            ...avatarDataRest,
+            alt: avatarDataRest.name,
             size,
-            style: { zIndex: maxAvatar + 1 - idx },
             onClick: callback ? callback : undefined,
-            className:
-              'relative inline-block rounded-full ring-2 ring-offset-2 ring-gray-100',
+            className: cn(
+              'relative inline-block rounded-full ring-2 ring-offset-2 ring-gray-100 dark:ring-gray-900',
+              className
+            ),
           },
           idx
         );
 
-        return !isTooltipDisabled && !avatarData.disabled ? (
+        return !isTooltipDisabled && !avatarDataRest.disabled ? (
           <ActionTooltip
-            label={avatarData.name}
+            label={avatarDataRest.name}
             asChild={false}
-            key={composeUniqueKey(avatarData, idx)}
+            key={composeUniqueKey(avatarDataRest, idx)}
           >
             {finalAvatar}
           </ActionTooltip>

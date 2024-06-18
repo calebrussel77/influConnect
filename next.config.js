@@ -23,6 +23,10 @@ const config = {
       },
       {
         protocol: 'https',
+        hostname: 'randomuser.me',
+      },
+      {
+        protocol: 'https',
         hostname: 'picsum.photos',
       },
       {

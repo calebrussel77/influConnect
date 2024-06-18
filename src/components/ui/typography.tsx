@@ -17,9 +17,11 @@ export const typographyVariants = cva('', {
       h3: 'text-xl font-semibold leading-6 tracking-tight',
       h4: 'text-lg font-semibold',
       h5: 'text-lg font-semibold leading-snug',
-      subtle: 'text-lg leading-7 text-slate-600 font-normal',
+      subtle:
+        'text-lg leading-7 text-slate-500 dark:text-slate-400 font-normal',
       paragraph: 'text-base',
-      description: 'text-base leading-7 text-slate-500 font-normal',
+      description:
+        'text-base leading-7 text-slate-500 dark:text-slate-400 font-normal',
       small: 'text-sm text-muted-foreground leading-5 font-normal',
     },
   },

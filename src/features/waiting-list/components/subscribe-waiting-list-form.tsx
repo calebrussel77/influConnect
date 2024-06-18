@@ -26,7 +26,7 @@ const SubscribeWaitingListForm = ({
 
   const subscribeToWaitingListMutation = api.waitingList.subscribe.useMutation({
     onSuccess({ message }) {
-      form.reset();
+      form.reset({ email: '' });
       toast.success(message);
       onSuccess?.();
     },

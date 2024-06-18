@@ -65,6 +65,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   ) => {
     const Comp = asChild ? Slot : 'button';
     const isDisabled = disabled ?? isLoading;
+    const isIconButton = size === 'icon';
     const isGhostOrOutlineVariant =
       variant === 'ghost' || variant === 'outline';
 
@@ -82,10 +83,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
           {isLoading && (
             <Spinner
               className={cn(size === 'lg' ? 'h-7 w-7' : 'h-6 w-6')}
-              variant={!isGhostOrOutlineVariant ? 'ghost' : 'white'}
+              color={isGhostOrOutlineVariant ? 'gray' : 'white'}
             />
           )}
-          {children}
+          {isIconButton && isLoading ? null : children}
         </React.Fragment>
       </Comp>
     );

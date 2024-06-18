@@ -7,7 +7,7 @@ import { AbsolutePlacement } from '../absolute-placement';
 const spinnerClasses = {
   white: 'border-l-white',
   primary: 'border-l-primary',
-  ghost: 'border-l-gray-600',
+  gray: 'border-l-gray-600',
 };
 
 const sizeClasses = {
@@ -20,11 +20,11 @@ const Spinner = forwardRef<
   HTMLDivElement,
   {
     className?: string;
-    variant?: keyof typeof spinnerClasses;
+    color?: keyof typeof spinnerClasses;
     size?: keyof typeof sizeClasses;
   }
->(({ className, variant = 'primary', size = 'md', ...rest }, ref) => {
-  const variantClassNames = spinnerClasses[variant];
+>(({ className, color = 'primary', size = 'md', ...rest }, ref) => {
+  const colorClassNames = spinnerClasses[color];
   const sizeClassNames = sizeClasses[size];
 
   return (
@@ -32,7 +32,7 @@ const Spinner = forwardRef<
       ref={ref}
       className={cn(
         'spinner-loader',
-        variantClassNames,
+        colorClassNames,
         sizeClassNames,
         className
       )}
@@ -54,7 +54,7 @@ const FullSpinner = ({
     return (
       <div className="fixed inset-0 z-40 flex h-full w-full items-center justify-center bg-white bg-opacity-70 backdrop-blur-sm backdrop-filter transition-all duration-200 ease-in-out">
         <div className="relative z-20 flex flex-col items-center justify-center gap-y-1">
-          <Spinner variant="primary" className="h-16 w-16" />
+          <Spinner color="primary" className="h-16 w-16" />
           {loadingText}
         </div>
       </div>
@@ -67,7 +67,7 @@ const FullSpinner = ({
       className="bg-white bg-opacity-70 backdrop-blur-sm backdrop-filter"
     >
       <div className="flex flex-col items-center justify-center gap-y-1">
-        <Spinner variant="primary" className="h-16 w-16" />
+        <Spinner color="primary" className="h-16 w-16" />
         {loadingText}
       </div>
     </AbsolutePlacement>

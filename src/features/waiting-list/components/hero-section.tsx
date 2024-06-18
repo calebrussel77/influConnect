@@ -6,6 +6,58 @@ import { FlipWords } from '@/components/ui/flip-words';
 import AnimatedGridPattern from '@/components/ui/animated-grid-pattern';
 import { cn } from '@/lib/utils';
 import { Reveal } from '@/components/ui/reveal';
+import { AvatarGroup } from '@/components/ui/avatar';
+import { generateArray, noop } from '@/utils/misc';
+import { Star } from 'lucide-react';
+import { StarSolidIcon } from '@/components/icons/star-solid-icon';
+
+const RANDOM_USERS = [
+  {
+    name: 'Cyril Rebeault',
+    image: '/images/social-proof01.webp',
+    className: 'bg-pink-600',
+  },
+  {
+    name: 'Alexandre Rebeault',
+    image: '/images/social-proof02.webp',
+    className: 'bg-green-600',
+  },
+  {
+    name: 'Cyril Rebeault',
+    image: '/images/social-proof03.webp',
+    className: 'bg-brand-600',
+  },
+  {
+    name: 'Alexandre Rebeault',
+    image: '/images/social-proof04.webp',
+    className: 'bg-purple-600',
+  },
+  {
+    name: 'Cyril Rebeault',
+    image: '/images/social-proof02.webp',
+    className: 'bg-yellow-600',
+  },
+  {
+    name: 'Alexandre Rebeault',
+    image: '/images/social-proof04.webp',
+    className: 'bg-yellow-600',
+  },
+  {
+    name: 'Cyril Rebeault',
+    image: '/images/social-proof04.webp',
+    className: 'bg-brand-600',
+  },
+  {
+    name: 'Alexandre Rebeault',
+    image: '/images/social-proof04.webp',
+    className: 'bg-yellow-600',
+  },
+];
+const data = RANDOM_USERS.map((d, i) => ({
+  name: d.name,
+  className: d.className,
+  src: d.image,
+}));
 
 export function HeroSection() {
   const companyWords = ['Marques', 'Startups', 'PME'];
@@ -40,6 +92,34 @@ export function HeroSection() {
           </Reveal>
           <Reveal width="full">
             <SubscribeWaitingListForm className="mx-auto xl:mx-0" />
+          </Reveal>
+          <Reveal>
+            <div className="flex items-center gap-3">
+              <AvatarGroup
+                isTooltipDisabled
+                className="mx-auto xl:mx-0"
+                appearance="stack"
+                size="sm"
+                data={data}
+                maxCount={6}
+                moreCount={100}
+                onMoreClick={noop}
+              />
+              <div className="space-y-0.5">
+                <div className="flex items-center">
+                  {generateArray(5).map((_, i) => (
+                    <StarSolidIcon
+                      key={i}
+                      className="h-4 w-4 text-yellow-600"
+                      aria-hidden
+                    />
+                  ))}
+                </div>
+                <Typography variant="small" className="text-xs">
+                  +100 personnes déjà inscrites
+                </Typography>
+              </div>
+            </div>
           </Reveal>
         </div>
         <Reveal>
