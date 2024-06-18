@@ -24,7 +24,7 @@ const LoadingOverlay = ({
       )}
     >
       <div className="relative z-20 flex flex-col items-center justify-center gap-y-1">
-        <Spinner variant="primary" className="h-12 w-12" />
+        <Spinner color="primary" className="h-12 w-12" />
         {text}
       </div>
     </div>
