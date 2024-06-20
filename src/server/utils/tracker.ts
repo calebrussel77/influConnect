@@ -4,6 +4,7 @@ import { PostHog } from 'posthog-node';
 import { env } from '@/env';
 import { getServerAuthSession } from '@/server/auth';
 import { toJson } from '@/utils/json-helpers';
+import { isDev } from '@/constants';
 
 export type UserActivityType =
   | 'Registration'
@@ -137,7 +138,7 @@ export class Tracker {
       });
       this._session.catch(() => {
         // ignore
-        // TODO - logging
+        // TODO: add logging
       });
       this._actor.userAgent =
         req.headers['user-agent'] ?? this._actor.userAgent;
@@ -146,7 +147,12 @@ export class Tracker {
 
   private async _track(namespace: string, custom: object) {
     try {
-      if (!env.NEXT_PUBLIC_POSTHOG_HOST || !env.NEXT_PUBLIC_POSTHOG_KEY) return;
+      if (
+        !env.NEXT_PUBLIC_POSTHOG_HOST ||
+        !env.NEXT_PUBLIC_POSTHOG_KEY ||
+        isDev
+      )
+        return;
 
       if (this._session) await this._session;
 
