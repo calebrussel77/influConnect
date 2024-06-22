@@ -4,10 +4,11 @@ import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Button } from '@/components/ui/button';
 import { toast } from 'sonner';
 import LocaleSwitcher from '@/components/local-switcher';
-import { type GetServerSidePropsContext } from 'next';
 import { Typography } from '@/components/ui/typography';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { createServerSideProps } from '@/server/utils/server-side';
+import { type SessionUser } from 'next-auth';
+import { signOut } from 'next-auth/react';
 
 export default function Home() {
   const { user: currentUser } = useCurrentUser();
@@ -59,14 +60,14 @@ export default function Home() {
           </Link>
         </div>
         <div className="flex flex-col items-center gap-2">
-          <AuthShowcase />
+          <AuthShowcase currentUser={currentUser} />
         </div>
       </div>
     </div>
   );
 }
 
-function AuthShowcase() {
+function AuthShowcase({ currentUser }: { currentUser?: SessionUser }) {
   return (
     <div className="flex flex-col items-center justify-center gap-4">
       <div className="flex items-center gap-4">
@@ -88,7 +89,11 @@ function AuthShowcase() {
         >
           Display toast message
         </Button>
-        <Button href="/login">Login to the app</Button>
+        {currentUser ? (
+          <Button onClick={() => signOut({ redirect: false })}>LogOut</Button>
+        ) : (
+          <Button href="/login">Login to the app</Button>
+        )}
       </div>
     </div>
   );

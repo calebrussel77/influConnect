@@ -23,6 +23,7 @@ import { getCsrfToken, getProviders, signIn } from 'next-auth/react';
 import { getBaseUrl } from '@/utils/url-helpers';
 import { SocialButton } from '@/components/social';
 import { type BuiltInProviderType } from 'next-auth/providers/index';
+import { Typography } from '@/components/ui/typography';
 
 type PageProps = InferNextProps<typeof getServerSideProps>;
 
@@ -75,18 +76,16 @@ const LoginPage = ({ providers }: PageProps) => {
               <span>Retour</span>
             </button>
             <Link href="/" className="ml-1 flex items-center gap-x-1.5">
-              <Logo />
+              <Logo className="h-5 w-auto" />
             </Link>
           </div>
           <div className="mx-auto flex h-full w-full flex-1 flex-col items-center justify-center space-y-6 sm:w-[450px]">
             <div className="flex flex-col space-y-2 text-center">
-              <h1 className="text-2xl font-semibold tracking-tight">
-                Connectez-vous ou inscrivez-vous en quelques secondes
-              </h1>
-              <p className="text-sm text-muted-foreground">
+              <Typography as="h2">Commencez en quelques secondes</Typography>
+              <Typography variant="small">
                 Utilisez votre e-mail ou un autre service pour continuer avec
                 Influconnect (c’est gratuit) !
-              </p>
+              </Typography>
             </div>
             {providers
               ? Object.values(providers)

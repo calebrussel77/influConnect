@@ -12,7 +12,7 @@ const Footer: FC<FooterProps> = () => {
     <footer className="mt-6 w-full">
       <div className="mx-auto max-w-7xl py-10">
         {/* <LogoIcon className="mx-auto h-5 w-auto md:h-6" /> */}
-        <Logo className="text-center" />
+        <Logo className="mx-auto" />
         <p className="mt-5 text-center text-sm leading-6 text-slate-500">
           &copy; {new Date().getFullYear()} influconnect. Tous droits réservés.
         </p>

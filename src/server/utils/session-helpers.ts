@@ -6,6 +6,7 @@ import { createLogger } from './logging';
 import { redis } from '@/lib/redis';
 import { getSessionUser } from '../api/modules/user/repository';
 import { randomUUID } from 'crypto';
+import { SessionUser } from 'next-auth';
 
 const DEFAULT_EXPIRATION = 60 * 60 * 24 * 30; // 30 days
 const log = createLogger('session-helpers', 'green');
@@ -70,17 +71,13 @@ export async function refreshToken(token: JWT) {
   if (user.id) {
     const refreshedUser = await getSessionUser({ userId: user.id });
 
-    console.log('REFRESHEDUSER AND USER AND TOKEN', {
-      refreshedUser,
-    });
-
     setToken(token, refreshedUser);
     log(`Refreshed session for user ${user.id}`);
   }
   return token;
 }
 
-function setToken(token: JWT, session: AsyncReturnType<typeof getSessionUser>) {
+function setToken(token: JWT, session: SessionUser | undefined) {
   if (!session || session.deletedAt) {
     token.user = undefined;
     return;

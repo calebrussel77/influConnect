@@ -13,7 +13,6 @@ import { type Context } from './create-context';
 import { type NextApiRequest } from 'next';
 import { REDIS_KEYS, redis } from '@/lib/redis';
 import semVer from 'semver';
-import { deSerialize } from '@/utils/text';
 
 /**
  * 2. INITIALIZATION
@@ -74,10 +73,6 @@ export const createTRPCRouter = t.router;
  * Enforce client version
  */
 export const enforceClientVersion = t.middleware(async ({ next, ctx }) => {
-  console.log('enforceClientVersion called');
-
-  console.log({ needsUpdate: await needsUpdate(ctx.req) });
-
   if (await needsUpdate(ctx.req)) {
     console.log('enforceClientVersion is set to TRUE');
     ctx.res?.setHeader('X-Update-Required', 'true');
