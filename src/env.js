@@ -52,6 +52,7 @@ export const env = createEnv({
     NEXT_PUBLIC_POSTHOG_KEY: z.string(),
     NEXT_PUBLIC_POSTHOG_HOST: z.string(),
     NEXT_PUBLIC_VERSION: z.string(),
+    NEXT_PUBLIC_FACEBOOK_PIXEL_ID: z.string(),
   },
 
   /**
@@ -81,6 +82,7 @@ export const env = createEnv({
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     RATE_LIMITING: process.env.RATE_LIMITING,
     NEXT_PUBLIC_VERSION: process.env.NEXT_PUBLIC_VERSION,
+    NEXT_PUBLIC_FACEBOOK_PIXEL_ID: process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID,
     LOGGING: process.env.LOGGING,
   },
   /**

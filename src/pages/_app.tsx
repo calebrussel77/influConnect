@@ -14,7 +14,7 @@ import { GeistSans } from 'geist/font/sans';
 import { getSession } from 'next-auth/react';
 import { APP_URL, isMaintenanceMode } from '@/constants';
 import { type NextPage } from 'next';
-import { type ReactElement, type ReactNode, useMemo } from 'react';
+import { type ReactElement, type ReactNode, useMemo, useEffect } from 'react';
 import { MainLayout } from '@/components/layouts';
 import { buildCanonical } from '@/lib/next-seo-config';
 import { WaitingListMode } from '@/features/waiting-list';
@@ -24,6 +24,8 @@ import { isDev } from '@/constants';
 import { isWindowDefined } from '@/utils/type-guards';
 import posthog from 'posthog-js';
 import { DefaultSeo } from '@/components/ui/default-seo';
+import { FB_PIXEL_ID, fbp } from '@/lib/fb-pixel';
+import Script from 'next/script';
 
 type CustomNextPage = NextPage & {
   getLayout?: (page: ReactElement, router: AppProps['router']) => ReactNode;
@@ -54,6 +56,20 @@ const MyApp = (props: AppPageProps) => {
     router,
   } = props;
 
+  useEffect(() => {
+    // This pageview only triggers the first time (it's important for Pixel to have real information)
+    fbp.pageview();
+
+    const handleRouteChange = () => {
+      fbp.pageview();
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
+
   // Use the layout defined at the page level, if available
   const getLayout = useMemo(
     () =>
@@ -72,6 +88,24 @@ const MyApp = (props: AppPageProps) => {
 
   return (
     <>
+      {/* Global Site Code Pixel - Facebook Pixel */}
+      <Script
+        id="fb-pixel"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', ${FB_PIXEL_ID});
+          `,
+        }}
+      />
       <Meta />
       <DefaultSeo
         canonical={buildCanonical({

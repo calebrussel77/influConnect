@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import { Form, InputText, useZodForm } from '@/components/ui/form';
 import { useIsMobile } from '@/hooks/use-beakpoints';
+import { fbp } from '@/lib/fb-pixel';
 import { cn } from '@/lib/utils';
 import { createWaitingListSubscriptionSchema } from '@/server/api/modules/waiting-list/schema';
 import { api } from '@/utils/api';
@@ -25,7 +26,8 @@ const SubscribeWaitingListForm = ({
   });
 
   const subscribeToWaitingListMutation = api.waitingList.subscribe.useMutation({
-    onSuccess({ message }) {
+    onSuccess({ message, email }) {
+      fbp.event('Subscribed to Wainting List', { email });
       form.reset({ email: '' });
       toast.success(message);
       onSuccess?.();

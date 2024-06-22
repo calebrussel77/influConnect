@@ -57,6 +57,7 @@ export const createWaitingListSubscriptionHandler = async ({
       .catch(() => console.log('Error tracking waitinglist subscription'));
 
     return {
+      email: input.email,
       message: `Vous êtes inscrit à notre liste d'attente. Nous vous informerons dès que notre plateforme sera disponible. Merci de votre intérêt !`,
     };
   } catch (error) {
