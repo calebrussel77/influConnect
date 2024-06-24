@@ -19,16 +19,14 @@ const SubscribeWaitingListForm = ({
   className,
   onSuccess,
 }: PropsWithChildren<SubscribeWaitingListFormProps>) => {
-  const isMobile = useIsMobile();
-
   const form = useZodForm({
     schema: createWaitingListSubscriptionSchema,
   });
 
   const subscribeToWaitingListMutation = api.waitingList.subscribe.useMutation({
-    onSuccess({ message, email }) {
-      fbp.event('Subscribed to Wainting List', { email });
+    onSuccess({ message, email, name }) {
       form.reset({ email: '', name: '' });
+      fbp.event('Subscribed to Wainting List', { email, name });
       toast.success(message);
       onSuccess?.();
     },
@@ -56,13 +54,7 @@ const SubscribeWaitingListForm = ({
         className
       )}
     >
-      <InputText
-        name="name"
-        autoFocus={!isMobile}
-        placeholder="Nom"
-        isFullWidth
-        required
-      />
+      <InputText name="name" placeholder="Nom" isFullWidth required />
       <InputText
         name="email"
         placeholder="Adresse email"
