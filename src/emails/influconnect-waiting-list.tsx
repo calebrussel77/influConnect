@@ -20,7 +20,7 @@ const baseUrl = process.env.VERCEL_URL
   ? `https://${process.env.VERCEL_URL}`
   : '';
 
-export const InfluconnectWaitingList = () => (
+export const InfluconnectWaitingList = ({ name }: { name: string }) => (
   <Html>
     <Head>
       <Font
@@ -41,7 +41,7 @@ export const InfluconnectWaitingList = () => (
           <Text style={heading}>InfluConnect</Text>
         </Section>
         <Section style={paragraphContent}>
-          <Text style={paragraph}>Bonjour,</Text>
+          <Text style={paragraph}>Bonjour {name},</Text>
           <Text style={paragraph}>
             Nous sommes ravis de vous accueillir parmi les premiers à découvrir
             InfluConnect, votre nouvelle plateforme de prédilection pour le

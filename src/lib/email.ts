@@ -19,6 +19,7 @@ export async function sendEmail({
   ...rest
 }: {
   to: string | string[] | null;
+  bcc?: string | string[];
   from?: string;
   subject: string;
   component: ReactElement<any, string | JSXElementConstructor<any>>;

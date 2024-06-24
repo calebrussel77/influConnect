@@ -31,6 +31,7 @@ export const env = createEnv({
     EMAIL_PORT: z.string(),
     EMAIL_USER: z.string(),
     EMAIL_PASS: z.string(),
+    EMAIL_BCC: z.string(),
     EMAIL_SECURE: z.preprocess(
       val => val === true || val === 'true',
       z.boolean()
@@ -81,6 +82,7 @@ export const env = createEnv({
     UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
     UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
     RATE_LIMITING: process.env.RATE_LIMITING,
+    EMAIL_BCC: process.env.EMAIL_BCC,
     NEXT_PUBLIC_VERSION: process.env.NEXT_PUBLIC_VERSION,
     NEXT_PUBLIC_FACEBOOK_PIXEL_ID: process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID,
     LOGGING: process.env.LOGGING,

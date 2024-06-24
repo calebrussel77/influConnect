@@ -28,7 +28,7 @@ const SubscribeWaitingListForm = ({
   const subscribeToWaitingListMutation = api.waitingList.subscribe.useMutation({
     onSuccess({ message, email }) {
       fbp.event('Subscribed to Wainting List', { email });
-      form.reset({ email: '' });
+      form.reset({ email: '', name: '' });
       toast.success(message);
       onSuccess?.();
     },
@@ -40,7 +40,10 @@ const SubscribeWaitingListForm = ({
   const onHandleSubmit = (
     data: z.infer<typeof createWaitingListSubscriptionSchema>
   ) => {
-    subscribeToWaitingListMutation.mutate({ email: data.email });
+    subscribeToWaitingListMutation.mutate({
+      email: data.email,
+      name: data.name,
+    });
   };
 
   return (
@@ -54,9 +57,15 @@ const SubscribeWaitingListForm = ({
       )}
     >
       <InputText
-        name="email"
+        name="name"
         autoFocus={!isMobile}
-        placeholder="Entrez votre adresse email"
+        placeholder="Nom"
+        isFullWidth
+        required
+      />
+      <InputText
+        name="email"
+        placeholder="Adresse email"
         isFullWidth
         required
       />

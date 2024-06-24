@@ -4,8 +4,9 @@ import { type CreateWaitingListSubscriptionInput } from './schema';
 
 export const createWaitingListSubscription = ({
   email,
+  name,
 }: CreateWaitingListSubscriptionInput) => {
-  return db.waitingListSubscription.create({ data: { email } });
+  return db.waitingListSubscription.create({ data: { email, name } });
 };
 
 export const deleteWaitingListSubscription = ({

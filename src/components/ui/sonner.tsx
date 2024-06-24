@@ -1,3 +1,4 @@
+import { CircleAlert, CircleCheck, Info, TriangleAlert } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Toaster as Sonner } from 'sonner';
 import { twMerge } from 'tailwind-merge';
@@ -11,9 +12,21 @@ const Toaster = ({ ...props }: ToasterProps) => {
     <Sonner
       theme={theme as ToasterProps['theme']}
       className="toaster group"
+      icons={{
+        error: <CircleAlert height={20} width={20} className="text-red-600" />,
+        info: <Info height={20} width={20} className="text-blue-600" />,
+        success: (
+          <CircleCheck height={20} width={20} className="text-green-600" />
+        ),
+        warning: (
+          <TriangleAlert height={20} width={20} className="text-yellow-600" />
+        ),
+      }}
       toastOptions={{
         classNames: {
-          icon: twMerge('!text-primary'),
+          closeButton: twMerge(
+            '!bg-white !left-auto !right-[var(--toast-close-button-start)]'
+          ),
           toast: twMerge('!bg-background !border-border !shadow-lg'),
           content: twMerge('!font-sans !text-foreground'),
           description: twMerge('!text-muted-foreground'),

@@ -36,7 +36,7 @@ const Providers = ({
           <PosthogProvider>
             <ModalsManagerProvider>{children}</ModalsManagerProvider>
             <UpdateRequiredWatcher />
-            <Toaster position="bottom-right" duration={900000} />
+            <Toaster position="bottom-right" />
           </PosthogProvider>
         </ThemeProvider>
       </NextIntlProvider>

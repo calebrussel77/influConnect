@@ -11,6 +11,7 @@ import {
   createWaitingListSubscription,
   getWaitingListSubscriptions,
 } from './repository';
+import { env } from '@/env';
 
 export const createWaitingListSubscriptionHandler = async ({
   ctx,
@@ -38,23 +39,23 @@ export const createWaitingListSubscriptionHandler = async ({
       };
     }
 
-    await createWaitingListSubscription({
-      email: input.email,
-    });
-
-    await sendEmail({
-      component: InfluconnectWaitingList(),
-      subject: 'Bienvenue à bord de InfluConnect ! 🎉',
-      to: input.email,
-    });
-
-    // Let it run in the background
-    ctx.track
-      .action({
+    await Promise.all([
+      createWaitingListSubscription({
+        ...input,
+      }),
+      sendEmail({
+        component: InfluconnectWaitingList({
+          name: input.name,
+        }),
+        subject: 'Bienvenue à bord de InfluConnect ! 🎉',
+        to: input.email,
+        bcc: env.EMAIL_BCC,
+      }),
+      ctx.track.action({
         type: 'Waitinglist_Subscription',
-        details: { email: input.email },
-      })
-      .catch(() => console.log('Error tracking waitinglist subscription'));
+        details: { ...input },
+      }),
+    ]);
 
     return {
       email: input.email,
